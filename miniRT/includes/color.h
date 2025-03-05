@@ -23,7 +23,7 @@ typedef struct  s_color
 // Color creation and basic operations
 t_color color_create(int r, int g, int b);
 t_color color_add(t_color c1, t_color c2);
-t_color color_multiply(t_color c, double scolar);
+t_color color_multiply(t_color c, double scalar);
 t_color color_multiply_colors(t_color c1, t_color c2);
 
 // Color conversion
