@@ -79,3 +79,4 @@ t_vec3  vec3_reflect(t_vec3 incident, t_vec3 normal)
     dot = vec3_dot(incident, normal);
     return (vec3_subtract(incident, vec3_multiply(normal, 2 * dot)));
 }
+
