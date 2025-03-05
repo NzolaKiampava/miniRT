@@ -24,6 +24,13 @@
 # include <errno.h>
 # include <float.h>
 
+# include "vector.h"
+# include "ray.h"
+# include "color.h"
+# include "objects.h"
+# include "scene.h"
+# include "parser.h"
+
 # define WINDOW_WIDTH 800
 # define WINDOW_HEIGHT 600
 # define EPSILON 0.00001
@@ -48,7 +55,7 @@
 # define X_EVENT_CLOSE_WINDOW 17
 
 /* Function prototypes */
-int     init_mls(void **mlx, void **win);
+int     init_mlx(void **mlx, void **win);
 int     close_window(void *param);
 int     key_press(int keycode, void *param);
 void    render_scene(t_scene *scene, void *mlx, void *win);
