@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   vector_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkiampav <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: maalmeid <maalmeid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:23:04 by nkiampav          #+#    #+#             */
-/*   Updated: 2025/02/27 09:23:09 by nkiampav         ###   ########.fr       */
+/*   Updated: 2025/03/05 16:12:41 by maalmeid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/vector.h"
+#include "../includes/minirt.h"
 #include <stdio.h>
 #include <float.h>
 
