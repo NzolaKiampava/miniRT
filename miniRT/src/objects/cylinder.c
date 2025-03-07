@@ -6,11 +6,11 @@
 /*   By: maalmeid <maalmeid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:50:05 by nkiampav          #+#    #+#             */
-/*   Updated: 2025/03/07 07:52:25 by maalmeid         ###   ########.fr       */
+/*   Updated: 2025/03/07 07:55:14 by maalmeid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../minirt.h"
+# include "../../includes/minirt.h"
 
 // Verifica se um ponto está dentro do cilindro
 bool cylinder_contains_point(t_cylinder *cylinder, t_vec3 point)
