@@ -1,0 +1,38 @@
+miniRT/
+├── includes/
+│   ├── minirt.h         (Main header)
+│   ├── parser.h         (Scene file parsing)
+│   ├── vector.h         (Vector operations)
+│   ├── ray.h            (Ray definition)
+│   ├── objects.h        (Object definitions)
+│   ├── scene.h          (Scene structure)
+│   └── color.h          (Color utilities)
+├── src/
+│   ├── main.c           (Program entry)
+│   ├── parser/          (File parsing)
+│   │   ├── parser.c
+│   │   ├── parse_objects.c
+│   │   └── parse_scene.c
+│   ├── vector/          (Vector operations)
+│   │   ├── vector_ops.c
+│   │   └── vector_utils.c
+│   ├── ray/             (Ray tracing core)
+│   │   ├── ray.c
+│   │   └── intersect.c
+│   ├── objects/         (Object implementations)
+│   │   ├── sphere.c
+│   │   ├── plane.c
+│   │   └── cylinder.c
+│   ├── render/          (Rendering)
+│   │   ├── render.c
+│   │   └── lighting.c
+│   ├── scene/          (scene)
+│   │   ├── scene.c
+│   │   
+│   └── utils/           (Utilities)
+│       ├── color.c
+│       └── error.c
+├── Makefile
+└── scenes/              (Example scene files)
+    ├── basic.rt
+    └── complex.rt
