@@ -10,4 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../includes/minirt.h"
 
+
+int	parse_scene(char *filename, t_scene *scene)
+{
+	int	fd;
+	char	*line;
+	char	**elements;
+	int		ret;
+}

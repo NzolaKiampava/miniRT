@@ -8,7 +8,8 @@ miniRT/
 │   ├── scene.h          (Scene structure)
 │   └── color.h          (Color utilities)
 ├── src/
-│   ├── main.c           (Program entry)
+│   ├── main          (Program entry)
+│   │   ├── main.c
 │   ├── parser/          (File parsing)
 │   │   ├── parser.c
 │   │   ├── parse_objects.c

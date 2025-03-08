@@ -94,7 +94,7 @@ void	object_free(t_object *obj)
  		return ;
 
  	if (obj->type == OBJ_SPHERE)
- 		sphere_translate((t_sphere *)obj->data);
+ 		sphere_translate((t_sphere *)obj->data, translation);
  	else if (obj->type == OBJ_PLANE)
  		plane_translate((t_plane *)obj->data, translation);
  	else if (obj->type == OBJ_CYLINDER)

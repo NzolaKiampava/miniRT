@@ -77,6 +77,7 @@ void	my_mlx_pixel_put(void *img, char *addr, int x, int y, int color,
 			int bits_per_pixel, int line_length)
 {
 	char	*dst;
+	(void)img;
 
 	dst = addr + (y * line_length + x * (bits_per_pixel / 8));
 	*(unsigned int *)dst = color;
@@ -148,7 +149,7 @@ int	main(int argc, char **argv)
 	// Parse scene file
 	if (parse_scene(argv[1], &scene) != 0)
 		print_error(ERR_SCENE);
-
+	
 	// Initialize MiniLibX
 	init_mlx(&scene);
 

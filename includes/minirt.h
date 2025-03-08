@@ -56,7 +56,7 @@
 # define X_EVENT_CLOSE_WINDOW 17
 
 /* Function prototypes */
-int     init_mlx(void **mlx, void **win);
+void	init_mlx(t_scene *scene);
 int     close_window(void *param);
 int     key_press(int keycode, void *param);
 void    render_scene(t_scene *scene, void *mlx, void *win);
