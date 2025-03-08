@@ -19,14 +19,18 @@ int ray_intersect_sphere(t_ray ray, void *object, t_hit_info *hit)
 	t_vec3 oc;
 	double a, b, c, discriminant, t;
 	double t1, t2;
+	double radius;
 
 	sphere = (t_sphere *)object;
 	oc = vec3_subtract(ray.origin, sphere->center);
 	
+	// Calculate radius from diameter
+	radius = sphere->diameter / 2.0;
+	
 	// Calculate quadratic formula components
 	a = vec3_dot(ray.direction, ray.direction);
 	b = 2.0 * vec3_dot(ray.direction, oc);
-	c = vec3_dot(oc, oc) - (sphere->radius * sphere->radius);
+	c = vec3_dot(oc, oc) - (radius * radius);
 	
 	discriminant = b * b - 4 * a * c;
 	if (discriminant < 0)
@@ -51,7 +55,7 @@ int ray_intersect_sphere(t_ray ray, void *object, t_hit_info *hit)
 		hit->normal = vec3_normalize(vec3_subtract(hit->point, sphere->center));
 		hit->color = sphere->color;
 		hit->object = object;
-		hit->type = SPHERE;
+		hit->type = OBJ_SPHERE;
 		return (1);
 	}
 	
@@ -91,7 +95,7 @@ int ray_intersect_plane(t_ray ray, void *object, t_hit_info *hit)
 			hit->normal = plane->normal;
 		hit->color = plane->color;
 		hit->object = object;
-		hit->type = PLANE;
+		hit->type = OBJ_PLANE;
 		return (1);
 	}
 	
@@ -106,11 +110,14 @@ int ray_intersect_cylinder(t_ray ray, void *object, t_hit_info *hit)
 	double a, b, c, discriminant;
 	double t, t1, t2;
 	t_vec3 intersection, proj;
-	double dist_from_center;
+	double radius;
 
 	cylinder = (t_cylinder *)object;
-	oc = vec3_subtract(ray.origin, cylinder->position);
-	v = vec3_normalize(cylinder->direction);
+	oc = vec3_subtract(ray.origin, cylinder->center);
+	v = vec3_normalize(cylinder->axis);
+	
+	// Calculate radius from diameter
+	radius = cylinder->diameter / 2.0;
 	
 	// Vector projection of oc onto cylinder axis
 	double oc_dot_v = vec3_dot(oc, v);
@@ -129,7 +136,7 @@ int ray_intersect_cylinder(t_ray ray, void *object, t_hit_info *hit)
 	// Set up quadratic equation for cylinder intersection
 	a = vec3_dot(perpendicular, perpendicular);
 	b = 2 * vec3_dot(perpendicular, ca);
-	c = vec3_dot(ca, ca) - (cylinder->radius * cylinder->radius);
+	c = vec3_dot(ca, ca) - (radius * radius);
 	
 	discriminant = b * b - 4 * a * c;
 	if (discriminant < 0 || a < EPSILON)
@@ -149,7 +156,7 @@ int ray_intersect_cylinder(t_ray ray, void *object, t_hit_info *hit)
 	
 	// Check if intersection is within cylinder height
 	intersection = ray_at(ray, t);
-	proj = vec3_subtract(intersection, cylinder->position);
+	proj = vec3_subtract(intersection, cylinder->center);
 	double height_proj = vec3_dot(proj, v);
 	
 	if (height_proj < 0 || height_proj > cylinder->height)
@@ -159,7 +166,7 @@ int ray_intersect_cylinder(t_ray ray, void *object, t_hit_info *hit)
 		{
 			t = t2;
 			intersection = ray_at(ray, t);
-			proj = vec3_subtract(intersection, cylinder->position);
+			proj = vec3_subtract(intersection, cylinder->center);
 			height_proj = vec3_dot(proj, v);
 			
 			if (height_proj < 0 || height_proj > cylinder->height)
@@ -176,12 +183,12 @@ int ray_intersect_cylinder(t_ray ray, void *object, t_hit_info *hit)
 		hit->point = intersection;
 		
 		// Calculate normal at intersection point
-		t_vec3 axis_point = vec3_add(cylinder->position, vec3_multiply(v, height_proj));
+		t_vec3 axis_point = vec3_add(cylinder->center, vec3_multiply(v, height_proj));
 		hit->normal = vec3_normalize(vec3_subtract(hit->point, axis_point));
 		
 		hit->color = cylinder->color;
 		hit->object = object;
-		hit->type = CYLINDER;
+		hit->type = OBJ_CYLINDER;
 		return (1);
 	}
 	
@@ -205,15 +212,15 @@ int ray_intersect_any(t_ray ray, void **objects, int num_objects, t_hit_info *hi
 		
 		switch (object_type)
 		{
-			case SPHERE:
+			case OBJ_SPHERE:
 				if (ray_intersect_sphere(ray, objects[i], &temp_hit))
 					hit_found = 1;
 				break;
-			case PLANE:
+			case OBJ_PLANE:
 				if (ray_intersect_plane(ray, objects[i], &temp_hit))
 					hit_found = 1;
 				break;
-			case CYLINDER:
+			case OBJ_CYLINDER:
 				if (ray_intersect_cylinder(ray, objects[i], &temp_hit))
 					hit_found = 1;
 				break;

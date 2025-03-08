@@ -28,6 +28,7 @@ t_color color_multiply_colors(t_color c1, t_color c2);
 
 // Color conversion
 int color_to_int(t_color c);
+double	color_to_scalar(t_color c);
 t_color int_to_color(int rgb);
 
 // Color utilities

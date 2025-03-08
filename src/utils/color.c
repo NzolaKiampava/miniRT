@@ -72,6 +72,13 @@ t_color int_to_color(int rgb)
     return (c);
 }
 
+double  color_to_scalar(t_color c)
+{
+    // Convert RGB color to a scalar value (usually average of components)
+    // This is commonly used in lighting used in lighting calculations
+    return ((double)(c.r + c.g + c.b) / (3.0 * 255.0));
+}
+
 // Color utilities
 t_color color_clamp(t_color c)
 {

@@ -24,6 +24,7 @@
 # include <errno.h>
 # include <float.h>
 
+# include "libft.h"
 # include "vector.h"
 # include "ray.h"
 # include "color.h"

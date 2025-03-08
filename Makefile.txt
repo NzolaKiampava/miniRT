@@ -54,6 +54,7 @@ INCS		= $(wildcard $(INC_DIR)/*.h)
 # Libft (if needed)
 LIBFT_DIR	= libft
 LIBFT		= $(LIBFT_DIR)/libft.a
+LIBFT_FLAGS = -L$(LIBFT_DIR) -lft
 
 # Rules
 all: $(MINILIBX_DIR)/libmlx.a $(NAME)
@@ -62,9 +63,9 @@ $(MINILIBX_DIR)/libmlx.a:
 	@echo "🔨 Compiling MinilibX..."
 	@$(MLX_COMPILE)
 
-$(NAME): $(OBJS)
+$(NAME): $(LIBFT) $(OBJS)
 	@echo "🔨 Compiling $(NAME)..."
-	@$(CC) $(CFLAGS) -I$(INC_DIR) -I$(MINILIBX_DIR) $(OBJS) -o $(NAME) $(MLXFLAGS) $(MATHFLAGS)
+	@$(CC) $(CFLAGS) -I$(INC_DIR) -I$(MINILIBX_DIR) -I$(LIBFT_DIR) $(OBJS) -o $(NAME) $(LIBFT_FLAGS) $(MLXFLAGS) $(MATHFLAGS)
 	@echo "✅ Compilation complete!"
 
 # Compile source files to object files
@@ -79,14 +80,17 @@ clean:
 	@if [ -f $(MINILIBX_DIR)/Makefile ]; then \
 		make -C $(MINILIBX_DIR) clean; \
 	fi
+	@if [ -f $(LIBFT_DIR)/Makefile ]; then \
+		make -C $(LIBFT_DIR) clean; \
+	fi
 	@echo "✅ Object files cleaned!"
 
 # Full clean
 fclean: clean
 	@echo "🧹 Removing executable..."
 	@rm -f $(NAME)
-	@if [ -f $(MINILIBX_DIR)/Makefile ]; then \
-		make -C $(MINILIBX_DIR) clean; \
+	@if [ -f $(LIBFT_DIR)/Makefile ]; then \
+		make -C $(LIBFT_DIR) fclean; \
 	fi
 	@echo "✅ Executable removed!"
 

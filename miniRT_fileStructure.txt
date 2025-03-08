@@ -33,6 +33,7 @@ miniRT/
 │       ├── color.c
 │       └── error.c
 ├── Makefile
+├── libft
 └── scenes/              (Example scene files)
     ├── basic.rt
     └── complex.rt
