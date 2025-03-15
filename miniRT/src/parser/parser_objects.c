@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_objects.c                                    :+:      :+:    :+:   */
+/*   parser_objects.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkiampav <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/08 12:10:15 by nkiampav          #+#    #+#             */
-/*   Updated: 2025/03/08 12:10:19 by nkiampav         ###   ########.fr       */
+/*   Created: 2025/03/14 17:21:04 by nkiampav          #+#    #+#             */
+/*   Updated: 2025/03/14 17:38:07 by nkiampav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,38 +14,43 @@
 
 /**
  * Parse a sphere from the scene file
- * Format: sp x,y,z r R,G,B
+ * Format: sp x,y,z diameter r,g,b
  * Returns 0 on success, -1 on error
- */
-int	parse_sphere(char **elements, t_scene *scene)
+*/
+int	parse_sphere(char **line, t_scene *scene)
 {
-	t_object	*sphere;
+	t_sphere	*sphere;
+	t_object	*obj;
 	t_vec3		center;
-	double		radius;
+	double		diameter;
 	t_color		color;
-	int			count;
 
-	count = count_elements(elements);
-	if (count != 4)
+	if (count_elements(line) != 4)
 		return (print_error("Invalid sphere format\n"), -1);
 	
-	// Parse sphere parameters
-	center = parse_vector(elements[1]);
-	radius = parse_double(elements[2]) / 2.0;
-	color = parse_color(elements[3]);
+	center = parse_vector(line[1]);
+	diameter = parse_double(line[2]);
+	color = parse_color(line[3]);
 	
+	if (diameter <= 0)
+		return (print_error("Invalid sphere diameter\n"), -1);
 	if (!validate_color_values(color))
 		return (print_error("Invalid sphere color\n"), -1);
 	
-	// Create sphere object
-	sphere = object_create_sphere(center, radius, color);
+	sphere = sphere_create(center, diameter, color);
 	if (!sphere)
 		return (print_error(ERR_MEMORY), -1);
 	
-	// Add sphere to scene
-	if (scene_add_object(scene, sphere) < 0)
+	obj = object_create(OBJ_SPHERE, sphere);
+	if (!obj)
 	{
-		object_free(sphere);
+		free(sphere);
+		return (print_error(ERR_MEMORY), -1);
+	}
+	
+	if (ft_lstadd_back(&scene->objects, ft_lstnew(obj)) == -1)
+	{
+		object_free(obj);
 		return (print_error(ERR_MEMORY), -1);
 	}
 	
@@ -54,41 +59,48 @@ int	parse_sphere(char **elements, t_scene *scene)
 
 /**
  * Parse a plane from the scene file
- * Format: pl x,y,z nx,ny,nz R,G,B
+ * Format: pl x,y,z nx,ny,nz r,g,b
  * Returns 0 on success, -1 on error
- */
-int	parse_plane(char **elements, t_scene *scene)
+*/
+int	parse_plane(char **line, t_scene *scene)
 {
-	t_object	*plane;
+	t_plane		*plane;
+	t_object	*obj;
 	t_vec3		point;
 	t_vec3		normal;
 	t_color		color;
-	int			count;
 
-	count = count_elements(elements);
-	if (count != 4)
+	if (count_elements(line) != 4)
 		return (print_error("Invalid plane format\n"), -1);
 	
-	// Parse plane parameters
-	point = parse_vector(elements[1]);
-	normal = parse_vector(elements[2]);
-	color = parse_color(elements[3]);
+	point = parse_vector(line[1]);
+	normal = parse_vector(line[2]);
+	color = parse_color(line[3]);
 	
-	if (!validate_vector_normalized(normal) || !validate_color_values(color))
-		return (print_error("Invalid plane parameters\n"), -1);
+	if (!validate_vector_normalized(normal))
+	{
+		normal = vec3_normalize(normal);
+		if (vec3_length(normal) < EPSILON)
+			return (print_error("Invalid plane normal vector\n"), -1);
+	}
 	
-	// Normalize the normal vector
-	normal = vec3_normalize(normal);
+	if (!validate_color_values(color))
+		return (print_error("Invalid plane color\n"), -1);
 	
-	// Create plane object
-	plane = object_create_plane(point, normal, color);
+	plane = plane_create(point, normal, color);
 	if (!plane)
 		return (print_error(ERR_MEMORY), -1);
 	
-	// Add plane to scene
-	if (scene_add_object(scene, plane) < 0)
+	obj = object_create(OBJ_PLANE, plane);
+	if (!obj)
 	{
-		object_free(plane);
+		free(plane);
+		return (print_error(ERR_MEMORY), -1);
+	}
+	
+	if (ft_lstadd_back(&scene->objects, ft_lstnew(obj)) == -1)
+	{
+		object_free(obj);
 		return (print_error(ERR_MEMORY), -1);
 	}
 	
@@ -97,46 +109,56 @@ int	parse_plane(char **elements, t_scene *scene)
 
 /**
  * Parse a cylinder from the scene file
- * Format: cy x,y,z nx,ny,nz d h R,G,B
+ * Format: cy x,y,z nx,ny,nz diameter height r,g,b
  * Returns 0 on success, -1 on error
- */
-int	parse_cylinder(char **elements, t_scene *scene)
+*/
+int	parse_cylinder(char **line, t_scene *scene)
 {
-	t_object	*cylinder;
+	t_cylinder	*cylinder;
+	t_object	*obj;
 	t_vec3		center;
 	t_vec3		axis;
 	double		diameter;
 	double		height;
 	t_color		color;
-	int			count;
 
-	count = count_elements(elements);
-	if (count != 6)
+	if (count_elements(line) != 6)
 		return (print_error("Invalid cylinder format\n"), -1);
 	
-	// Parse cylinder parameters
-	center = parse_vector(elements[1]);
-	axis = parse_vector(elements[2]);
-	diameter = parse_double(elements[3]);
-	height = parse_double(elements[4]);
-	color = parse_color(elements[5]);
+	center = parse_vector(line[1]);
+	axis = parse_vector(line[2]);
+	diameter = parse_double(line[3]);
+	height = parse_double(line[4]);
+	color = parse_color(line[5]);
 	
-	if (!validate_vector_normalized(axis) || diameter <= 0 || height <= 0 || 
-		!validate_color_values(color))
-		return (print_error("Invalid cylinder parameters\n"), -1);
+	if (!validate_vector_normalized(axis))
+	{
+		axis = vec3_normalize(axis);
+		if (vec3_length(axis) < EPSILON)
+			return (print_error("Invalid cylinder axis vector\n"), -1);
+	}
 	
-	// Normalize the axis vector
-	axis = vec3_normalize(axis);
+	if (diameter <= 0)
+		return (print_error("Invalid cylinder diameter\n"), -1);
+	if (height <= 0)
+		return (print_error("Invalid cylinder height\n"), -1);
+	if (!validate_color_values(color))
+		return (print_error("Invalid cylinder color\n"), -1);
 	
-	// Create cylinder object
-	cylinder = object_create_cylinder(center, axis, diameter / 2.0, height, color);
+	cylinder = cylinder_create(center, axis, diameter, height, color);
 	if (!cylinder)
 		return (print_error(ERR_MEMORY), -1);
 	
-	// Add cylinder to scene
-	if (scene_add_object(scene, cylinder) < 0)
+	obj = object_create(OBJ_CYLINDER, cylinder);
+	if (!obj)
 	{
-		object_free(cylinder);
+		free(cylinder);
+		return (print_error(ERR_MEMORY), -1);
+	}
+	
+	if (ft_lstadd_back(&scene->objects, ft_lstnew(obj)) == -1)
+	{
+		object_free(obj);
 		return (print_error(ERR_MEMORY), -1);
 	}
 	
