@@ -6,11 +6,11 @@
 /*   By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:21:04 by nkiampav          #+#    #+#             */
-/*   Updated: 2025/03/14 12:38:07 by nkiampav         ###   ########.fr       */
+/*   Updated: 2025/03/17 10:22:56 by nkiampav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minirt.h"
+#include "../../includes/minirt.h"
 
 static 	int parse_line(char **elements, t_scene *scene);
 
