@@ -6,7 +6,7 @@
 /*   By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:21:20 by nkiampav          #+#    #+#             */
-/*   Updated: 2025/03/17 09:36:11 by nkiampav         ###   ########.fr       */
+/*   Updated: 2025/03/17 10:22:35 by nkiampav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static int  add_object_to_scene(t_scene *scene, t_object *obj)
  * Format: sp x,y,z r R,G,B
  * Returns 0 on success, -1 on error
 */
-int parser_sphere(char **line, t_scene *scene)
+int parse_sphere(char **line, t_scene *scene)
 {
     t_sphere    *sphere;
     t_object    *obj;
@@ -66,7 +66,7 @@ int parser_sphere(char **line, t_scene *scene)
 
     // Parse sphere parameters
     center = parse_vector(line[1]);
-    radius = parse_double(line[2]);
+    diameter = parse_double(line[2]);
     color = parse_color(line[3]);
 
     if (diameter <= 0)
@@ -75,7 +75,7 @@ int parser_sphere(char **line, t_scene *scene)
         return (print_error("Invalid sphere color\n"), -1);
 
     // Create sphere object
-    sphere = sphere_create(center, radius, color);
+    sphere = sphere_create(center, diameter, color);
     if (!sphere)
         return (print_error(ERR_MEMORY), -1);
     
@@ -122,7 +122,7 @@ int parse_plane(char **line, t_scene *scene)
             return (print_error("Invalid plane normal vector\n"), -1);
     }
 
-    if (!validade_color_values(color))
+    if (!validate_color_values(color))
         return (print_error("Invalid plane color\n"), -1);
     plane = plane_create(point, normal, color);
     if (!plane)
@@ -156,32 +156,42 @@ int parse_cylinder(char **line, t_scene *scene)
     double      height;
     t_color     color;
 
-    count = count_elements(elements);
-    if (count != 0)
+    if (count_elements(line) != 0)
         return (print_error("Invalid cylinder format\n"), -1);
 
     // Parse cylinder parameters
-    center = parse_vector(elements[1]);
-    axis = parse_vector(elements[2]);
-    diameter = parse_double(elements[3]);
-    height = parse_double(elements[4]);
-    color = parse_color(elements[5]);
+    center = parse_vector(line[1]);
+    axis = parse_vector(line[2]);
+    diameter = parse_double(line[3]);
+    height = parse_double(line[4]);
+    color = parse_color(line[5]);
 
-    if (!validate_vector_normalized(axis) || diameter <= 0 || height <= 0 || !validate_color_values(color))
-        return (print_error("Invalid cylinder parameters\n"), -1);
+    if (!validate_vector_normalized(axis))
+    {
+        axis = vec3_normalize(axis);
+        if (vec3_length(axis) < EPSILON)
+            return (print_error("Invalid cylinder axis vector\n"), -1);
+    }
+    if (diameter <= 0)
+        return (print_error("Invalid cylinder diameter\n"), -1);
+    if (height <= 0)
+        return (print_error("Invalid cylinder height\n"), -1);
+    if (!validate_color_values(color))
+        return (print_error("Invalid cylinder color\n"), -1);
 
-    // Normalize the axis vector
-    axis = vec3_normalize(axis);
-
-    // Create cylinder object
-    cylinder = object_create_cylinder(center, axis, diameter / 2.0, height, color);
+    cylinder = cylinder_create(center, axis, diameter, height, color);
     if (!cylinder)
         return (print_error(ERR_MEMORY), -1);
 
-    // Add cylinder to scene
+    obj = object_create(OBJ_CYLINDER, cylinder);
+    if (!obj)
+    {
+        free(cylinder);
+        return (print_error(ERR_MEMORY), -1);
+    }
     if (add_object_to_scene(scene, obj) == -1)
     {
-        object_free(cylinder);
+        object_free(obj);
         return (print_error(ERR_MEMORY), -1);
     }
     return (0);
