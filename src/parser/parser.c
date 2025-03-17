@@ -3,15 +3,46 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkiampav <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:21:04 by nkiampav          #+#    #+#             */
-/*   Updated: 2025/02/27 09:21:05 by nkiampav         ###   ########.fr       */
+/*   Updated: 2025/03/14 12:38:07 by nkiampav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minirt.h"
 
+static 	int parse_line(char **elements, t_scene *scene);
+
+static char	*read_line(int fd)
+{
+	char	buffer[4096];
+	char	*line;
+	int		i;
+	int		bytesread;
+
+	i = 0;
+	bytesread = read(fd, &buffer[i], 1);
+	if (bytesread <= 0)
+		return (NULL);
+
+	while (bytesread > 0 && buffer[i] != '\n')
+	{
+		i++;
+		if (i >= 4095)
+			break ;
+		bytesread = read(fd, &buffer[i], 1);
+	}
+
+	buffer[i] = '\0';
+	line = ft_strdup(buffer);
+	return (line);
+}
+
+/**
+ * Parses a scene file and fills the scene structure
+ * Returns 0 on sucess, -1 on error
+*/
 int	parse_scene(char *filename, t_scene *scene)
 {
 	int	fd;
@@ -26,7 +57,7 @@ int	parse_scene(char *filename, t_scene *scene)
 		return (print_error(ERR_FILE), -1);
 	scene_init(scene);
 	ret = 0;
-	while (ret == 0 && get_next_line(fd, &line) > 0)
+	while (ret == 0 && (line = read_line(fd)) != NULL)
 	{
 		if (line[0] == '\0' || line[0] == '#')
 		{
@@ -53,7 +84,6 @@ int	parse_scene(char *filename, t_scene *scene)
  * Parse a line from the scene file
  * Returns 0 on success, -1 on error
 */
-
 static int	parse_line(char **elements, t_scene *scene)
 {
 	if (!elements[0])
@@ -68,7 +98,7 @@ static int	parse_line(char **elements, t_scene *scene)
 		return (parse_sphere(elements, scene));
 	else if (ft_strcmp(elements[0], "pl") == 0)
 		return (parse_plane(elements, scene));
-	else if (ft_strcmp(elements[0], "cy") == 0);
+	else if (ft_strcmp(elements[0], "cy") == 0)
 		return (parse_cylinder(elements, scene));
 	else
 		return (print_error("Unknown element type\n"), -1);
@@ -138,7 +168,7 @@ void	free_split(char **split)
 	i = 0;
 	while (split[i])
 	{
-		free(split[i])
+		if(split[i])
 			i++;
 	}
 	free(split);

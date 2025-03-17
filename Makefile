@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nkiampav <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/05 10:11:29 by nkiampav          #+#    #+#              #
-#    Updated: 2025/03/05 10:11:33 by nkiampav         ###   ########.fr        #
+#    Updated: 2025/03/14 12:05:33 by nkiampav         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,9 +28,17 @@ UNAME_S := $(shell uname -s)
 
 # MLX Flags and Libraries
 ifeq ($(UNAME_S),Linux)
-	# Linux
+	# Linux - modified to avoid bsd dependency
 	MLXFLAGS	= -L$(MINILIBX_DIR) -lmlx -lXext -lX11 -lm
-	MLX_COMPILE	= make -C $(MINILIBX_DIR)
+	
+	# Custom MinilibX compilation to avoid bsd dependency
+	MLX_COMPILE	= cd $(MINILIBX_DIR) && make -f Makefile.gen
+	
+	# Check if we need to patch the MinilibX Makefile
+	MLX_PATCH = $(shell grep -l "lbsd" $(MINILIBX_DIR)/Makefile.gen > /dev/null 2>&1 && echo "yes" || echo "no")
+	ifeq ($(MLX_PATCH),yes)
+		MLX_COMPILE = cd $(MINILIBX_DIR) && sed -i 's/-lbsd//g' Makefile.gen && make -f Makefile.gen
+	endif
 else ifeq ($(UNAME_S),Darwin)
 	# macOS
 	MLXFLAGS	= -L$(MINILIBX_DIR) -lmlx -framework OpenGL -framework AppKit
@@ -43,7 +51,7 @@ endif
 # Math library
 MATHFLAGS	= -lm
 
-# Source files - adjusted to match your actual directory structure
+# Source files - adjusted to match the actual directory structure
 SRC_DIRS	= main parser vector ray render objects scene utils
 SRCS		= $(foreach dir,$(SRC_DIRS),$(wildcard $(SRC_DIR)/$(dir)/*.c))
 OBJS		= $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRCS))

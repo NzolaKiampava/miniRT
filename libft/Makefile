@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nkiampav <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/22 13:57:08 by nkiampav          #+#    #+#              #
-#    Updated: 2024/05/22 13:57:32 by nkiampav         ###   ########.fr        #
+#    Updated: 2025/03/14 08:37:51 by nkiampav         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ CFLAGS = -Wall -Werror -Wextra -g3
 AR = ar rcs
 SRC = ft_isalpha \
 	ft_append_char \
+	ft_atof \
 	ft_isdigit \
 	ft_isalnum \
 	ft_isascii \

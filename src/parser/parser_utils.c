@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkiampav <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 15:30:50 by nkiampav          #+#    #+#             */
-/*   Updated: 2025/03/13 15:32:06 by nkiampav         ###   ########.fr       */
+/*   Updated: 2025/03/14 10:04:06 by nkiampav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,49 +111,4 @@ int	validate_color_values(t_color color)
 	return (1);
 }
 
-/**
- * Convert from string to double (supports decimal points)
- * This function should be in libft, but in case it's not
- */
-double	ft_atof(const char *str)
-{
-	double	result;
-	double	decimal;
-	int		sign;
-	int		i;
-
-	result = 0.0;
-	decimal = 0.0;
-	sign = 1;
-	i = 0;
-	// Skip whitespace
-	while (str[i] && (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13)))
-		i++;
-	// Handle sign
-	if (str[i] == '-' || str[i] == '+')
-	{
-		if (str[i] == '-')
-			sign = -1;
-		i++;
-	}
-	// Parse integer part
-	while (str[i] && str[i] >= '0' && str[i] <= '9')
-	{
-		result = result * 10.0 + (str[i] - '0');
-		i++;
-	}
-	// Parse decimal part
-	if (str[i] == '.')
-	{
-		double divisor = 10.0;
-		i++;
-		while (str[i] && str[i] >= '0' && str[i] <= '9')
-		{
-			decimal += (str[i] - '0') / divisor;
-			divisor *= 10.0;
-			i++;
-		}
-	}
-	return (sign * (result + decimal));
-}
 

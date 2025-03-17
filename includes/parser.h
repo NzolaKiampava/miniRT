@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkiampav <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:19:15 by nkiampav          #+#    #+#             */
-/*   Updated: 2025/02/27 09:19:19 by nkiampav         ###   ########.fr       */
+/*   Updated: 2025/03/14 12:19:24 by nkiampav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@
 int parse_scene(char *filename, t_scene *scene);
 
 // Element parsing function
-int parse_ambient(char *line, t_scene *scene);
-int parse_camera(char *line, t_scene *scene);
-int parse_light(char *line, t_scene *scene);
-int parse_sphere(char *line, t_scene *scene);
-int parse_plane(char *line, t_scene *scene);
-int parse_cylinder(char *line, t_scene *scene);
+int parse_ambient(char **line, t_scene *scene);
+int parse_camera(char **line, t_scene *scene);
+int parse_light(char **line, t_scene *scene);
+int parse_sphere(char **line, t_scene *scene);
+int parse_plane(char **line, t_scene *scene);
+int parse_cylinder(char **line, t_scene *scene);
 
 // Helper parsing function
 t_vec3  parse_vector(char *str);
@@ -40,5 +40,7 @@ int validate_vector(t_vec3 vector, double min, double max);
 int validate_color(t_color color);
 int validate_ratio(double ratio);
 int validate_fov(double fov);
+int	validate_color_values(t_color color);
+int	validate_vector_normalized(t_vec3 vector);
 
 #endif

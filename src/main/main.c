@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkiampav <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:20:47 by nkiampav          #+#    #+#             */
-/*   Updated: 2025/02/27 09:20:48 by nkiampav         ###   ########.fr       */
+/*   Updated: 2025/03/14 10:35:29 by nkiampav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ bool	check_extension(char *filename, char *ext)
 	if (!filename)
 		return (false);
 	
-	dot = strrchr(filename, '.');
+	dot = ft_strrchr(filename, '.');
 	if (!dot)
 		return (false);
 	

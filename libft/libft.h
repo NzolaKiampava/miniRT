@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkiampav <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:03:02 by nkiampav          #+#    #+#             */
-/*   Updated: 2024/05/19 19:03:15 by nkiampav         ###   ########.fr       */
+/*   Updated: 2025/03/14 08:41:43 by nkiampav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ char	*ft_charjoin(char *result, char c);
 char	*ft_append_char(char *str, char c);
 
 /* ---------------	STRINGS		--------------- */
+double	ft_atof(const char *str);
 size_t	ft_strlen(const char *str);
 char	*ft_strchr(const char *str, int c);
 char	*ft_strrchr(const char *str, int c);
