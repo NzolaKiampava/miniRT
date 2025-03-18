@@ -6,7 +6,7 @@
 /*   By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:21:20 by nkiampav          #+#    #+#             */
-/*   Updated: 2025/03/17 10:22:35 by nkiampav         ###   ########.fr       */
+/*   Updated: 2025/03/18 11:29:16 by nkiampav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,7 @@ int parse_cylinder(char **line, t_scene *scene)
     double      height;
     t_color     color;
 
-    if (count_elements(line) != 0)
+    if (count_elements(line) != 6)
         return (print_error("Invalid cylinder format\n"), -1);
 
     // Parse cylinder parameters

@@ -14,6 +14,7 @@ miniRT/
 │   │   ├── parser.c
 │   │   ├── parse_objects.c
 │   │   └── parse_scene.c
+│   │   └── parse_utils.c
 │   ├── vector/          (Vector operations)
 │   │   ├── vector_ops.c
 │   │   └── vector_utils.c
@@ -24,6 +25,7 @@ miniRT/
 │   │   ├── sphere.c
 │   │   ├── plane.c
 │   │   └── cylinder.c
+│   │   └── objects.c
 │   ├── render/          (Rendering)
 │   │   ├── render.c
 │   │   └── lighting.c
@@ -35,6 +37,7 @@ miniRT/
 │       └── error.c
 ├── Makefile
 ├── libft
+├── minilibx
 └── scenes/              (Example scene files)
     ├── basic.rt
     └── complex.rt

@@ -6,7 +6,7 @@
 /*   By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 15:30:50 by nkiampav          #+#    #+#             */
-/*   Updated: 2025/03/14 10:04:06 by nkiampav         ###   ########.fr       */
+/*   Updated: 2025/03/17 10:28:55 by nkiampav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,5 +110,3 @@ int	validate_color_values(t_color color)
 		return (0);
 	return (1);
 }
-
-

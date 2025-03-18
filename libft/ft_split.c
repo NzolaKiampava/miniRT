@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkiampav <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 16:14:17 by nkiampav          #+#    #+#             */
-/*   Updated: 2024/05/20 16:14:18 by nkiampav         ###   ########.fr       */
+/*   Updated: 2025/03/18 11:05:20 by nkiampav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ char	**ft_split(char const *s, char c)
 
 	if (!s)
 	{
-		strs = malloc(sizeof(char) * 1);
+		strs = malloc(sizeof(char*) * 1);
 		if (!strs)
 			return (NULL);
 		*strs = NULL;

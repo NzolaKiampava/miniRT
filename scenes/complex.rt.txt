@@ -1,0 +1,31 @@
+
+# Complex scene with multiple objects and lighting
+
+# Ambient lighting (low intensity, soft white)
+A 0.1 200,200,200
+
+# Camera (positioned to view multiple objects)
+C -100,50,50 0.5,-0.3,-0.8 65
+
+# Multiple light sources
+L -60,80,30 0.5 255,255,255
+L 60,40,20 0.4 0,255,255
+L 0,100,50 0.3 255,0,255
+
+# Ground plane
+pl 0,0,0 0,1.0,0 100,100,100
+
+# Red sphere
+sp -30,10,40 25 255,0,0
+
+# Green cylinder
+cy 0,10,30 0,1.0,0 15 30 0,255,0
+
+# Blue plane
+pl -50,0,80 1.0,0,0 0,0,255
+
+# White sphere
+sp 40,15,50 20 220,220,220
+
+# Yellow cylinder
+cy 50,5,60 0,0,1.0 10 25 255,255,0
