@@ -156,7 +156,7 @@ int parse_cylinder(char **line, t_scene *scene)
     double      height;
     t_color     color;
 
-    if (count_elements(line) != 0)
+    if (count_elements(line) != 6)
         return (print_error("Invalid cylinder format\n"), -1);
 
     // Parse cylinder parameters
