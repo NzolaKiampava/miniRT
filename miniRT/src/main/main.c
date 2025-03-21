@@ -6,7 +6,7 @@
 /*   By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:20:47 by nkiampav          #+#    #+#             */
-/*   Updated: 2025/03/20 09:40:18 by nkiampav         ###   ########.fr       */
+/*   Updated: 2025/03/21 08:39:52 by nkiampav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,7 @@ int	main(int argc, char **argv)
 
 	// Debugging
 		// Adiciona uma esfera de teste
+		/*
 		t_sphere *sphere = sphere_create(vec3_create(0, 0, 0), 1.0, color_create(255, 0, 0));
 		t_object *obj = object_create(OBJ_SPHERE, sphere);
 		scene_add_object(&scene, obj);
@@ -173,6 +174,7 @@ int	main(int argc, char **argv)
 		scene.camera.position = vec3_create(0, 0, 10);
 		scene.camera.orientation = vec3_create(0, 0, -1);
 		scene.camera.fov = 70;
+		*/
 	// end Debugging
 
 	// Parse scene file
@@ -187,7 +189,7 @@ int	main(int argc, char **argv)
 	render(&scene);
 
 	// Set up event hooks
-	mlx_hook(scene.win, X_EVENT_KEY_PRESS, 0, key_press, &scene);
+	mlx_hook(scene.win, X_EVENT_KEY_PRESS, 1L<<0, key_press, &scene);
 	mlx_hook(scene.win, X_EVENT_CLOSE_WINDOW, 0, close_window, &scene);
 
 	// Start MiniLibX loop
