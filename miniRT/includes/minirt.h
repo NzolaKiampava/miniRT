@@ -44,7 +44,7 @@
 # define ERR_MEMORY "Memory allocation error\n"
 
 /* Key codes */
-# define KEY_ESC 53
+# define KEY_ESC 65307
 
 /* Event codes */
 # define X_EVENT_KEY_PRESS 2
