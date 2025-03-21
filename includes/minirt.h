@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkiampav <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:18:56 by nkiampav          #+#    #+#             */
-/*   Updated: 2025/02/27 09:19:01 by nkiampav         ###   ########.fr       */
+/*   Updated: 2025/03/21 08:40:01 by nkiampav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@
 # define ERR_MEMORY "Memory allocation error\n"
 
 /* Key codes */
-# define KEY_ESC 53
+# define KEY_ESC 65307
 
 /* Event codes */
 # define X_EVENT_KEY_PRESS 2

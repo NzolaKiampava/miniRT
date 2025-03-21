@@ -1,9 +1,20 @@
 
 # Basic scene with simple geometric objects
 
+# Ambient lighting
 A 0.7 255,255,255
-C 0,0,5 0,0,-1 120
+
+# Camera
+C 0,0,5 0,0,-1 70
+
+# Light source
 L 0,10,10 1.0 255,255,255
+
+# Sphere
 sp 0,0,0 2 255,0,0
+
+# Plane (ground)
 pl 0,-5,0 0,1,0 0,255,0
+
+# Cylinder
 cy 0,0,0 0,1,0 1 2 0,0,255

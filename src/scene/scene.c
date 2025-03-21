@@ -6,7 +6,7 @@
 /*   By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 12:08:04 by nkiampav          #+#    #+#             */
-/*   Updated: 2025/03/20 16:22:01 by nkiampav         ###   ########.fr       */
+/*   Updated: 2025/03/21 08:34:16 by nkiampav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,10 @@ void	scene_free(t_scene *scene)
 	if (scene->win && scene->mlx)
 		mlx_destroy_window(scene->mlx, scene->win);
 	if (scene->mlx)
+	{
 		mlx_destroy_display(scene->mlx);
+		free(scene->mlx);
+	}
 }
 
 int	scene_add_object(t_scene *scene, t_object *obj)
