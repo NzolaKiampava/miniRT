@@ -6,7 +6,7 @@
 /*   By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:21:04 by nkiampav          #+#    #+#             */
-/*   Updated: 2025/03/17 10:22:56 by nkiampav         ###   ########.fr       */
+/*   Updated: 2025/04/01 11:57:36 by nkiampav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,11 +165,13 @@ void	free_split(char **split)
 {
 	int	i;
 	
+	if (!split)
+		return ;
 	i = 0;
 	while (split[i])
 	{
-		if(split[i])
-			i++;
+		free(split[i]);
+		i++;
 	}
 	free(split);
 }

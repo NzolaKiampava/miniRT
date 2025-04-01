@@ -6,7 +6,7 @@
 /*   By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 12:08:04 by nkiampav          #+#    #+#             */
-/*   Updated: 2025/03/21 08:34:16 by nkiampav         ###   ########.fr       */
+/*   Updated: 2025/04/01 10:58:47 by nkiampav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,19 +180,11 @@ t_color scene_calculate_lighting(t_scene *scene, t_hit_info hit)
 	double	Specular_intensity;
     int i;
 
-    printf("Object type: %d\n", hit.type);
-    printf("Object color: r=%d, g=%d, b=%d\n", hit.color.r, hit.color.g, hit.color.b);
-    printf("Number of lights: %d\n", scene->num_lights);
-    printf("Ambient: ratio=%.2f, color=(%d,%d,%d)\n", scene->ambient.ratio,
-           scene->ambient.color.r, scene->ambient.color.g, scene->ambient.color.b);
-
     // Ambient lighting: Apply ambient light to the object's color
     ambient_color = color_multiply_colors(hit.color, scene->ambient.color);
     ambient_color = color_multiply(ambient_color, scene->ambient.ratio);
     final_color = ambient_color;
-    printf("Ambient contribution: r=%d, g=%d, b=%d\n", ambient_color.r, ambient_color.g, ambient_color.b);
-    printf("After ambient: r=%d, g=%d, b=%d\n", final_color.r, final_color.g, final_color.b);
-
+	
     // Diffuse lighting
     for (i = 0; i < scene->num_lights; i++)
     {
@@ -200,26 +192,17 @@ t_color scene_calculate_lighting(t_scene *scene, t_hit_info hit)
         light_dir = vec3_normalize(vec3_subtract(scene->lights[i].position, hit.point));
         light_distance = vec3_length(vec3_subtract(scene->lights[i].position, hit.point));
 
-        printf("Light %d position: (%.2f, %.2f, %.2f)\n", i,
-               scene->lights[i].position.x, scene->lights[i].position.y, scene->lights[i].position.z);
-        printf("Hit point: (%.2f, %.2f, %.2f)\n", hit.point.x, hit.point.y, hit.point.z);
-        printf("Light direction: (%.2f, %.2f, %.2f)\n", light_dir.x, light_dir.y, light_dir.z);
-        printf("Normal: (%.2f, %.2f, %.2f)\n", hit.normal.x, hit.normal.y, hit.normal.z);
-
         // Check if point is in shadow
         if (!scene_is_in_shadow(scene, hit.point, light_dir, light_distance))
         {
             // Calculate diffuse lighting
             diffuse_intensity = fmax(vec3_dot(hit.normal, light_dir), 0.0);
-            printf("Diffuse intensity: %.2f\n", diffuse_intensity);
 
             // Combine object color with light color
             diffuse_color = color_multiply_colors(hit.color, scene->lights[i].color);
             diffuse_color = color_multiply(diffuse_color, diffuse_intensity * scene->lights[i].brightness);
-            printf("Diffuse contribution: r=%d, g=%d, b=%d\n", diffuse_color.r, diffuse_color.g, diffuse_color.b);
 
             final_color = color_add(final_color, diffuse_color);
-            printf("After light %d: r=%d, g=%d, b=%d\n", i, final_color.r, final_color.g, final_color.b);
 
 			// Specular (Phone model)
 			t_vec3	view_dir = vec3_normalize(vec3_subtract(scene->camera.position, hit.point));
@@ -229,8 +212,6 @@ t_color scene_calculate_lighting(t_scene *scene, t_hit_info hit)
 			final_color = color_add(final_color, specular_color);
 		}
     }
-
-    printf("Final color: r=%d, g=%d, b=%d\n", final_color.r, final_color.g, final_color.b);
     return color_clamp(final_color);
 }
 int	scene_is_in_shadow(t_scene *scene, t_vec3 point, t_vec3 light_dir, double light_distance)

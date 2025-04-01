@@ -6,7 +6,7 @@
 /*   By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 10:00:00 by nkiampav          #+#    #+#             */
-/*   Updated: 2025/03/20 10:06:52 by nkiampav         ###   ########.fr       */
+/*   Updated: 2025/04/01 11:05:41 by nkiampav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,11 @@ int ray_intersect_sphere(t_ray ray, void *object, t_hit_info *hit)
     double c = vec3_dot(oc, oc) - (radius * radius);
     
     double discriminant = b * b - 4 * a * c;
-    printf("Sphere: a=%.2f, b=%.2f, c=%.2f, discriminant=%.2f\n", a, b, c, discriminant);
     if (discriminant < 0)
-    {
-        printf("No intersection: discriminant < 0\n");
         return (0);
-    }
     
     double t1 = (-b - sqrt(discriminant)) / (2.0 * a);
     double t2 = (-b + sqrt(discriminant)) / (2.0 * a);
-    printf("t1=%.2f, t2=%.2f\n", t1, t2);
     
     double t;
     if (t1 > EPSILON)
@@ -41,10 +36,7 @@ int ray_intersect_sphere(t_ray ray, void *object, t_hit_info *hit)
     else if (t2 > EPSILON)
         t = t2;
     else
-    {
-        printf("No intersection: t values behind ray\n");
         return (0);
-    }
     
     if (hit != NULL && (hit->t < 0 || t < hit->t))
     {
@@ -54,7 +46,6 @@ int ray_intersect_sphere(t_ray ray, void *object, t_hit_info *hit)
         hit->color = sphere->color;
         hit->object = object;
         hit->type = OBJ_SPHERE;
-        printf("Sphere hit at t=%.2f\n", t);
         return (1);
     }
     return (0);
@@ -65,22 +56,14 @@ int ray_intersect_plane(t_ray ray, void *object, t_hit_info *hit)
 {
     t_plane *plane = (t_plane *)object;
     double denom = vec3_dot(plane->normal, ray.direction);
-    printf("Plane: denom=%.2f\n", denom);
     if (fabs(denom) < EPSILON)
-    {
-        printf("No intersection: ray parallel to plane\n");
         return (0);
-    }
     
     t_vec3 p0l0 = vec3_subtract(plane->point, ray.origin);
     double t = vec3_dot(p0l0, plane->normal) / denom;
-    printf("Plane: t=%.2f\n", t);
     
     if (t < EPSILON)
-    {
-        printf("No intersection: t < EPSILON\n");
         return (0);
-    }
     
     if (hit != NULL && (hit->t < 0 || t < hit->t))
     {
@@ -93,7 +76,6 @@ int ray_intersect_plane(t_ray ray, void *object, t_hit_info *hit)
         hit->color = plane->color;
         hit->object = object;
         hit->type = OBJ_PLANE;
-        printf("Plane hit at t=%.2f\n", t);
         return (1);
     }
     return (0);
@@ -136,17 +118,12 @@ int ray_intersect_cylinder(t_ray ray, void *object, t_hit_info *hit)
 	c = vec3_dot(ca, ca) - (radius * radius);
 	
 	discriminant = b * b - 4 * a * c;
-	printf("cylinder: a=%.2f, b=%.2f, c=%.2f, discriminant=%.2f\n", a, b, c, discriminant);
 	if (discriminant < 0 || a < EPSILON)
-	{	
-		printf("No intersection: discriminant < 0\n");
 		return (0); // No intersection
-	}
 	
 	// Find closest intersection point
 	t1 = (-b - sqrt(discriminant)) / (2.0 * a);
 	t2 = (-b + sqrt(discriminant)) / (2.0 * a);
-	printf("t1=%.2f, t2=%.2f\n", t1, t2);
 	
 	// Get smallest positive t
 	if (t1 > EPSILON)
@@ -154,10 +131,7 @@ int ray_intersect_cylinder(t_ray ray, void *object, t_hit_info *hit)
 	else if (t2 > EPSILON)
 		t = t2;
 	else
-	{	
-		printf("No intersection: t values behing ray\n");
 		return (0);
-	}
 	
 	// Check if intersection is within cylinder height
 	intersection = ray_at(ray, t);
@@ -194,7 +168,6 @@ int ray_intersect_cylinder(t_ray ray, void *object, t_hit_info *hit)
 		hit->color = cylinder->color;
 		hit->object = object;
 		hit->type = OBJ_CYLINDER;
-		printf("cylinder hit at t=%.2f\n", t);
 		return (1);
 	}
 	
@@ -215,32 +188,27 @@ int ray_intersect_any(t_ray ray, void **objects, int num_objects, t_hit_info *hi
     for (i = 0; i < num_objects; i++)
     {
         obj = (t_object *)objects[i];
-        printf("Checking object %d, type: %d\n", i, obj->type);
         switch (obj->type)
         {
             case OBJ_SPHERE:
                 if (ray_intersect_sphere(ray, obj->data, &temp_hit))
                 {
-                    printf("Sphere hit at t = %.2f\n", temp_hit.t);
                     hit_found = 1;
                 }
                 break;
             case OBJ_PLANE:
                 if (ray_intersect_plane(ray, obj->data, &temp_hit))
                 {
-                    printf("Plane hit at t = %.2f\n", temp_hit.t);
                     hit_found = 1;
                 }
                 break;
             case OBJ_CYLINDER:
                 if (ray_intersect_cylinder(ray, obj->data, &temp_hit))
                 {
-                    printf("Cylinder hit at t = %.2f\n", temp_hit.t);
                     hit_found = 1;
                 }
                 break;
             default:
-                printf("Unknown object type: %d\n", obj->type);
                 break;
         }
     }
