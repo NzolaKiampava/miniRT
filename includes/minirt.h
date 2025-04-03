@@ -6,7 +6,7 @@
 /*   By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:18:56 by nkiampav          #+#    #+#             */
-/*   Updated: 2025/03/21 08:40:01 by nkiampav         ###   ########.fr       */
+/*   Updated: 2025/04/03 20:08:08 by maalmeid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,13 @@
 
 /* Function prototypes */
 void	init_mlx(t_scene *scene);
-int     close_window(void *param);
-int     key_press(int keycode, void *param);
-void    render_scene(t_scene *scene, void *mlx, void *win);
-void    my_mlx_pixel_put(void *img, char *addr, int x, int y, int color,
-        int bits_per_pixel, int line_length);
-bool    check_extension(char *filename, char *ext);
-void    free_scene(t_scene *scene);
-void    init_scene(t_scene *scene);
-void    print_error(char *message);
+int		close_window(void *param);
+int		key_press(int keycode, void *param);
+void	render_scene(t_scene *scene, void *mlx, void *win);
+void	my_mlx_pixel_put(void *img, char *addr, int x, int y, int color, int bits_per_pixel, int line_length);
+bool	check_extension(char *filename, char *ext);
+void	free_scene(t_scene *scene);
+void	init_scene(t_scene *scene);
+void	print_error(char *message);
 
 #endif
-
