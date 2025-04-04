@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkiampav <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 12:08:04 by nkiampav          #+#    #+#             */
-/*   Updated: 2025/03/05 12:08:05 by nkiampav         ###   ########.fr       */
+/*   Updated: 2025/04/04 11:11:59 by nkiampav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,39 +35,6 @@ void	scene_init(t_scene *scene)
 	// MiniLibX pointers
 	scene->mlx = NULL;
 	scene->win = NULL;
-}
-
-void	scene_free(t_scene *scene)
-{
-	int	i;
-
-	// Free objects
-	if (scene->objects)
-	{
-		for (i = 0; i < scene->num_objects; i++)
-		{
-			if (scene->objects[i])
-			{
-				object_free(scene->objects[i]);
-				scene->objects[i] = NULL;
-			}
-		}
-		free(scene->objects);
-		scene->objects = NULL;
-	}
-
-	// Free lights
-	if (scene->lights)
-	{
-		free(scene->lights);
-		scene->lights = NULL;
-	}
-
-	// Close MiniLibX window and connection
-	if (scene->win && scene->mlx)
-		mlx_destroy_window(scene->mlx, scene->win);
-	if (scene->mlx)
-		mlx_destroy_display(scene->mlx);
 }
 
 int	scene_add_object(t_scene *scene, t_object *obj)
@@ -130,20 +97,6 @@ int	scene_add_light(t_scene *scene, t_light light)
 	return (0);
 }
 
-void	scene_rotate_camera(t_scene *scene, t_vec3 rotation)
-{
-	// Rotate camera orientation vector
-	scene->camera.orientation = vec3_rotate_x(scene->camera.orientation, rotation.x);
-	scene->camera.orientation = vec3_rotate_y(scene->camera.orientation, rotation.y);
-	scene->camera.orientation = vec3_rotate_z(scene->camera.orientation, rotation.z);
-}
-
-void	scene_translate_camera(t_scene *scene, t_vec3 translation)
-{
-	// Translate camera position
-	scene->camera.position = vec3_add(scene->camera.position, translation);
-}
-
 t_color	scene_trace_ray(t_scene *scene, t_ray ray, int depth)
 {
 	t_hit_info	hit;
@@ -165,65 +118,49 @@ t_color	scene_trace_ray(t_scene *scene, t_ray ray, int depth)
 	return (color_create(135, 206, 235)); // Sky blue
 }
 
-t_color	scene_calculate_lighting(t_scene *scene, t_hit_info hit)
+t_color scene_calculate_lighting(t_scene *scene, t_hit_info hit)
 {
-	t_color		final_color;
-	t_color		ambient_color;
-	int			i;
-	t_vec3		light_dir;
-	double		light_distance;
-	double		diffuse_intensity;
+    t_color final_color = color_create(0, 0, 0);
+    t_color ambient_color;
+    t_color diffuse_color;
+	t_color	specular_color;
+    t_vec3 light_dir;
+    double light_distance;
+    double diffuse_intensity;
+	double	Specular_intensity;
+    int i;
 
-	// Ambient lighting
-	ambient_color = color_multiply(scene->ambient.color, 
-		color_to_scalar(hit.color) * scene->ambient.ratio);
+    // Ambient lighting: Apply ambient light to the object's color
+    ambient_color = color_multiply_colors(hit.color, scene->ambient.color);
+    ambient_color = color_multiply(ambient_color, scene->ambient.ratio);
+    final_color = ambient_color;
+	
+    // Diffuse lighting
+    for (i = 0; i < scene->num_lights; i++)
+    {
+        // Calculate light direction and distance
+        light_dir = vec3_normalize(vec3_subtract(scene->lights[i].position, hit.point));
+        light_distance = vec3_length(vec3_subtract(scene->lights[i].position, hit.point));
 
-	// Initialize with ambient color
-	final_color = ambient_color;
+        // Check if point is in shadow
+        if (!scene_is_in_shadow(scene, hit.point, light_dir, light_distance))
+        {
+            // Calculate diffuse lighting
+            diffuse_intensity = fmax(vec3_dot(hit.normal, light_dir), 0.0);
 
-	// Iterate through light sources
-	for (i = 0; i < scene->num_lights; i++)
-	{
-		// Calculate light direction and distance
-		light_dir = vec3_normalize(
-			vec3_subtract(scene->lights[i].position, hit.point)
-		);
-		light_distance = vec3_length(
-			vec3_subtract(scene->lights[i].position, hit.point)
-		);
+            // Combine object color with light color
+            diffuse_color = color_multiply_colors(hit.color, scene->lights[i].color);
+            diffuse_color = color_multiply(diffuse_color, diffuse_intensity * scene->lights[i].brightness);
 
-		// Check if point is in shadow
-		if (!scene_is_in_shadow(scene, hit.point, light_dir, light_distance))
-		{
-			// Calculate diffuse lighting
-			diffuse_intensity = fmax(vec3_dot(hit.normal, light_dir), 0.0);
-			final_color = color_add(final_color, 
-				color_multiply(scene->lights[i].color, 
-					color_to_scalar(hit.color) * 
-					scene->lights[i].brightness * diffuse_intensity)
-			);
+            final_color = color_add(final_color, diffuse_color);
+
+			// Specular (Phone model)
+			t_vec3	view_dir = vec3_normalize(vec3_subtract(scene->camera.position, hit.point));
+			t_vec3	reflect_dir = vec3_reflect(vec3_multiply(light_dir, -1), hit.normal);
+			Specular_intensity = pow(fmax(vec3_dot(view_dir, reflect_dir), 0.0), 32);   // shininess = 32
+			specular_color = color_multiply(scene->lights[i].color, Specular_intensity * scene->lights[i].brightness);
+			final_color = color_add(final_color, specular_color);
 		}
-	}
-
-	return (color_clamp(final_color));
-}
-
-int	scene_is_in_shadow(t_scene *scene, t_vec3 point, t_vec3 light_dir, double light_distance)
-{
-	t_ray		shadow_ray;
-	t_hit_info	shadow_hit;
-
-	// Create shadow ray slightly offset from surface to avoid self-intersection
-	shadow_ray.origin = vec3_add(point, vec3_multiply(light_dir, EPSILON));
-	shadow_ray.direction = light_dir;
-
-	// Check for intersection with any object
-	if (ray_intersect_any(shadow_ray, (void **)scene->objects, scene->num_objects, &shadow_hit))
-	{
-		// If intersection exists and is closer than the light source
-		if (shadow_hit.t < light_distance)
-			return (1);
-	}
-
-	return (0);
+    }
+    return color_clamp(final_color);
 }
