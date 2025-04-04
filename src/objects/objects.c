@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   objects.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkiampav <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 11:16:17 by nkiampav          #+#    #+#             */
-/*   Updated: 2025/03/08 11:16:22 by nkiampav         ###   ########.fr       */
+/*   Updated: 2025/04/04 11:34:42 by nkiampav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
  * @param data Pointer to the object-specific data
  * @return Pointer to the newly created object
  */
+ 
 t_object	*object_create(int type, void *data)
 {
 	t_object	*obj;
@@ -28,19 +29,6 @@ t_object	*object_create(int type, void *data)
 	obj->type = type;
 	obj->data = data;
 	return (obj);
-}
-
-/**
- * Frees memory allocated for an object
- * @param obj Pointer to the object to free
- */
-void	object_free(t_object *obj)
-{
-	if (!obj)
-		return ;
-	if (obj->data)
-		free(obj->data);
-	free(obj);
 }
 
 /**
@@ -58,8 +46,6 @@ void	object_free(t_object *obj)
  		return (plane_get_normal((t_plane *)obj, point));
  	else if (type == OBJ_CYLINDER)
  		return (cylinder_get_normal((t_cylinder *)obj, point));
-
- 	// Default return if type is unknown (should not happen)
  	return ((t_vec3){0, 0, 0});
  }
 
@@ -77,9 +63,6 @@ void	object_free(t_object *obj)
  		return (((t_plane *)obj)->color);
  	else if (type == OBJ_CYLINDER)
  		return (((t_cylinder *)obj)->color);
-
- 	// Default return if type is unknown (should not happen)
- 	// Assuming t_color has r, g, b components
  	return ((t_color){0, 0, 0});
  }
 

@@ -6,13 +6,35 @@
 /*   By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:21:04 by nkiampav          #+#    #+#             */
-/*   Updated: 2025/04/01 11:57:36 by nkiampav         ###   ########.fr       */
+/*   Updated: 2025/04/04 11:22:28 by nkiampav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minirt.h"
 
-static 	int parse_line(char **elements, t_scene *scene);
+/**
+ * Parse a line from the scene file
+ * Returns 0 on success, -1 on error
+*/
+static int	parse_line(char **elements, t_scene *scene)
+{
+	if (!elements[0])
+		return (0);
+	if (ft_strcmp(elements[0], "A") == 0)
+		return (parse_ambient(elements, scene));
+	else if (ft_strcmp(elements[0], "C") == 0)
+		return (parse_camera(elements, scene));
+	else if (ft_strcmp(elements[0], "L") == 0)
+		return (parse_light(elements, scene));
+	else if (ft_strcmp(elements[0], "sp") == 0)
+		return (parse_sphere(elements, scene));
+	else if (ft_strcmp(elements[0], "pl") == 0)
+		return (parse_plane(elements, scene));
+	else if (ft_strcmp(elements[0], "cy") == 0)
+		return (parse_cylinder(elements, scene));
+	else
+		return (print_error("Unknown element type\n"), -1);
+}
 
 static char	*read_line(int fd)
 {
@@ -81,30 +103,6 @@ int	parse_scene(char *filename, t_scene *scene)
 }
 
 /**
- * Parse a line from the scene file
- * Returns 0 on success, -1 on error
-*/
-static int	parse_line(char **elements, t_scene *scene)
-{
-	if (!elements[0])
-		return (0);
-	if (ft_strcmp(elements[0], "A") == 0)
-		return (parse_ambient(elements, scene));
-	else if (ft_strcmp(elements[0], "C") == 0)
-		return (parse_camera(elements, scene));
-	else if (ft_strcmp(elements[0], "L") == 0)
-		return (parse_light(elements, scene));
-	else if (ft_strcmp(elements[0], "sp") == 0)
-		return (parse_sphere(elements, scene));
-	else if (ft_strcmp(elements[0], "pl") == 0)
-		return (parse_plane(elements, scene));
-	else if (ft_strcmp(elements[0], "cy") == 0)
-		return (parse_cylinder(elements, scene));
-	else
-		return (print_error("Unknown element type\n"), -1);
-}
-
-/**
  * Split a line into elements
  * Returns a NULL-terminated array of strings, or NULL on error
 */
@@ -143,37 +141,6 @@ char	**split_line(char *line)
 	}
 	elements[count] = NULL;
 	return (elements);
-}
-
-/**
- * Count the number of elements in a NULL-terminated array
-*/
-int	count_elements(char **elements)
-{
-	int	count;
-
-	count = 0;
-	while (elements[count])
-		count++;
-	return (count);
-}
-
-/**
- * Free a NULL-terminated array of strings
-*/
-void	free_split(char **split)
-{
-	int	i;
-	
-	if (!split)
-		return ;
-	i = 0;
-	while (split[i])
-	{
-		free(split[i]);
-		i++;
-	}
-	free(split);
 }
 
 /**

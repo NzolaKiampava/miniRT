@@ -6,7 +6,7 @@
 /*   By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:19:15 by nkiampav          #+#    #+#             */
-/*   Updated: 2025/04/03 22:02:09 by maalmeid         ###   ########.fr       */
+/*   Updated: 2025/03/17 10:22:43 by nkiampav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,31 +16,31 @@
 # include "scene.h"
 
 // Main parsing function
-int		parse_scene(char *filename, t_scene *scene);
+int parse_scene(char *filename, t_scene *scene);
 
 // Element parsing function
-int		parse_ambient(char **line, t_scene *scene);
-int		parse_camera(char **line, t_scene *scene);
-int		parse_light(char **line, t_scene *scene);
-int		parse_sphere(char **line, t_scene *scene);
-int		parse_plane(char **line, t_scene *scene);
-int		parse_cylinder(char **line, t_scene *scene);
+int parse_ambient(char **line, t_scene *scene);
+int parse_camera(char **line, t_scene *scene);
+int parse_light(char **line, t_scene *scene);
+int parse_sphere(char **line, t_scene *scene);
+int parse_plane(char **line, t_scene *scene);
+int parse_cylinder(char **line, t_scene *scene);
 
 // Helper parsing function
-t_vec3	parse_vector(char *str);
-t_color	parse_color(char *str);
-double	parse_double(char *str);
-char	**split_line(char *line);
-void	free_split(char **split);
-int		count_elements(char **split);
+t_vec3  parse_vector(char *str);
+t_color parse_color(char *str);
+double  parse_double(char *str);
+char    **split_line(char *line);
+void    free_split(char **split);
+int     count_elements(char **split);
 
 // Validation functions
-int		validate_scene(t_scene *scene);
-int		validate_vector(t_vec3 vector, double min, double max);
-int		validate_color(t_color color);
-int		validate_ratio(double ratio);
-int		validate_fov(double fov);
-int		validate_color_values(t_color color);
-int		validate_vector_normalized(t_vec3 vector);
+int validate_scene(t_scene *scene);
+int validate_vector(t_vec3 vector, double min, double max);
+int validate_color(t_color color);
+int validate_ratio(double ratio);
+int validate_fov(double fov);
+int	validate_color_values(t_color color);
+int	validate_vector_normalized(t_vec3 vector);
 
 #endif
