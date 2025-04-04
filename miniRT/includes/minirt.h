@@ -58,6 +58,7 @@
 int     init_mlx(void **mlx, void **win);
 int     close_window(void *param);
 int     key_press(int keycode, void *param);
+void	render(t_scene *scene);
 void    render_scene(t_scene *scene, void *mlx, void *win);
 void    my_mlx_pixel_put(void *img, char *addr, int x, int y, int color,
         int bits_per_pixel, int line_length);
