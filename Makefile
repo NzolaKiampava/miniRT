@@ -52,7 +52,7 @@ endif
 MATHFLAGS	= -lm
 
 # Source files - adjusted to match the actual directory structure
-SRC_DIRS	= main parser vector ray render objects scene utils
+SRC_DIRS	= main parser vector ray render objects scene utils color
 SRCS		= $(foreach dir,$(SRC_DIRS),$(wildcard $(SRC_DIR)/$(dir)/*.c))
 OBJS		= $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRCS))
 
