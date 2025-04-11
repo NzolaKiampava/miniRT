@@ -6,7 +6,7 @@
 #    By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/05 10:11:29 by nkiampav          #+#    #+#              #
-#    Updated: 2025/03/14 12:05:33 by nkiampav         ###   ########.fr        #
+#    Updated: 2025/04/04 12:38:30 by nkiampav         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,32 +21,10 @@ CFLAGS		= -Wall -Wextra -Werror -g
 SRC_DIR		= src
 OBJ_DIR		= obj
 INC_DIR		= includes
-MINILIBX_DIR	= minilibx
-
-# Platform detection
-UNAME_S := $(shell uname -s)
+MINILIBX_DIR	= minilibx-linux
 
 # MLX Flags and Libraries
-ifeq ($(UNAME_S),Linux)
-	# Linux - modified to avoid bsd dependency
-	MLXFLAGS	= -L$(MINILIBX_DIR) -lmlx -lXext -lX11 -lm
-	
-	# Custom MinilibX compilation to avoid bsd dependency
-	MLX_COMPILE	= cd $(MINILIBX_DIR) && make -f Makefile.gen
-	
-	# Check if we need to patch the MinilibX Makefile
-	MLX_PATCH = $(shell grep -l "lbsd" $(MINILIBX_DIR)/Makefile.gen > /dev/null 2>&1 && echo "yes" || echo "no")
-	ifeq ($(MLX_PATCH),yes)
-		MLX_COMPILE = cd $(MINILIBX_DIR) && sed -i 's/-lbsd//g' Makefile.gen && make -f Makefile.gen
-	endif
-else ifeq ($(UNAME_S),Darwin)
-	# macOS
-	MLXFLAGS	= -L$(MINILIBX_DIR) -lmlx -framework OpenGL -framework AppKit
-	MLX_COMPILE	= make -C $(MINILIBX_DIR)
-else
-	# Unsupported platform
-	$(error Unsupported operating system)
-endif
+MLXFLAGS	= -L$(MINILIBX_DIR) -lmlx -lXext -lX11 -lm
 
 # Math library
 MATHFLAGS	= -lm
@@ -74,7 +52,7 @@ $(LIBFT):
 
 $(MINILIBX_DIR)/libmlx.a:
 	@echo "🔨 Compiling MinilibX..."
-	@$(MLX_COMPILE)
+	@make -C $(MINILIBX_DIR)
 
 $(NAME): $(OBJS)
 	@echo "🔨 Compiling $(NAME)..."

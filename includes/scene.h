@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkiampav <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:20:08 by nkiampav          #+#    #+#             */
-/*   Updated: 2025/02/27 09:20:09 by nkiampav         ###   ########.fr       */
+/*   Updated: 2025/04/10 16:17:30 by nkiampav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct  s_scene
     int         max_lights;
     void        *mlx;               // mlx connection  pointer
     void        *win;               // window pointer
+    int         selected_object;    // Index of currently selected object
 }   t_scene;    
 
 

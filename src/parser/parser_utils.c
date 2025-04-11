@@ -6,7 +6,7 @@
 /*   By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 15:30:50 by nkiampav          #+#    #+#             */
-/*   Updated: 2025/03/17 10:28:55 by nkiampav         ###   ########.fr       */
+/*   Updated: 2025/04/09 14:35:58 by nkiampav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,34 +79,42 @@ double	parse_double(char *str)
 }
 
 /**
- * Validate that a vector is normalized (or close to being normalized)
- */
-int	validate_vector_normalized(t_vec3 vector)
+ * Split a line into elements
+ * Returns a NULL-terminated array of strings, or NULL on error
+*/
+char	**split_line(char *line)
 {
-	double	length;
+	char	**elements;
+	int		i;
+	int		start;
+	int		count;
 
-	// Check if vector is close to zero
-	if (fabs(vector.x) < EPSILON && 
-		fabs(vector.y) < EPSILON && 
-		fabs(vector.z) < EPSILON)
-		return (0);
-	
-	// Check if length is close to 1
-	length = vec3_length(vector);
-	if (fabs(length - 1.0) > 0.1) // Allow for some imprecision
-		return (0);
-	
-	return (1);
-}
-
-/**
- * Validate a color's components are within the valid range (0-255)
- */
-int	validate_color_values(t_color color)
-{
-	if (color.r < 0 || color.r > 255 ||
-		color.g < 0 || color.g > 255 ||
-		color.b < 0 || color.b > 255)
-		return (0);
-	return (1);
+	elements = (char **)malloc(sizeof(char *) * (ft_strlen(line) + 1));
+	if (!elements)
+		return (print_error(ERR_MEMORY), NULL);
+	i = 0;
+	count = 0;
+	while (line[i])
+	{
+		// Skip whitespace
+		while (line[i] && (line[i] == ' ' || line[i] == '\t'))
+			i++;
+		if (!line[i])
+			break;
+		// Mark end of element
+		start = i;
+		// Find end of element
+		while (line[i] && line[i] != ' ' && line[i] != '\t')
+			i++;
+		// Copy element
+		elements[count] = ft_substr(line, start, i - start);
+		if (!elements[count])
+		{
+			free_split(elements);
+			return (print_error(ERR_MEMORY), NULL);
+		}
+		count++;
+	}
+	elements[count] = NULL;
+	return (elements);
 }

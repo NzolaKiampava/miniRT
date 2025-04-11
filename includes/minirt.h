@@ -6,7 +6,7 @@
 /*   By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:18:56 by nkiampav          #+#    #+#             */
-/*   Updated: 2025/04/04 11:36:35 by nkiampav         ###   ########.fr       */
+/*   Updated: 2025/04/11 09:51:58 by nkiampav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@
 # include "scene.h"
 # include "parser.h"
 
-# define WINDOW_WIDTH 800
-# define WINDOW_HEIGHT 600
+# define WINDOW_WIDTH 1000
+# define WINDOW_HEIGHT 900
 # define EPSILON 0.00001
 # define MAX_RAY_DEPTH 5
 

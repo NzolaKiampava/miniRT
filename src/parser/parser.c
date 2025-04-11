@@ -6,7 +6,7 @@
 /*   By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:21:04 by nkiampav          #+#    #+#             */
-/*   Updated: 2025/04/04 11:22:28 by nkiampav         ###   ########.fr       */
+/*   Updated: 2025/04/09 14:36:03 by nkiampav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,47 +100,6 @@ int	parse_scene(char *filename, t_scene *scene)
 	if (ret == 0)
 		ret = validate_scene(scene);
 	return (ret);
-}
-
-/**
- * Split a line into elements
- * Returns a NULL-terminated array of strings, or NULL on error
-*/
-char	**split_line(char *line)
-{
-	char	**elements;
-	int		i;
-	int		start;
-	int		count;
-
-	elements = (char **)malloc(sizeof(char *) * (ft_strlen(line) + 1));
-	if (!elements)
-		return (print_error(ERR_MEMORY), NULL);
-	i = 0;
-	count = 0;
-	while (line[i])
-	{
-		// Skip whitespace
-		while (line[i] && (line[i] == ' ' || line[i] == '\t'))
-			i++;
-		if (!line[i])
-			break;
-		// Mark end of element
-		start = i;
-		// Find end of element
-		while (line[i] && line[i] != ' ' && line[i] != '\t')
-			i++;
-		// Copy element
-		elements[count] = ft_substr(line, start, i - start);
-		if (!elements[count])
-		{
-			free_split(elements);
-			return (print_error(ERR_MEMORY), NULL);
-		}
-		count++;
-	}
-	elements[count] = NULL;
-	return (elements);
 }
 
 /**

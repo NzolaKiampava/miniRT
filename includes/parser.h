@@ -6,7 +6,7 @@
 /*   By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:19:15 by nkiampav          #+#    #+#             */
-/*   Updated: 2025/03/17 10:22:43 by nkiampav         ###   ########.fr       */
+/*   Updated: 2025/04/09 13:14:55 by nkiampav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,14 @@ int validate_ratio(double ratio);
 int validate_fov(double fov);
 int	validate_color_values(t_color color);
 int	validate_vector_normalized(t_vec3 vector);
+int	add_object_to_scene(t_scene *scene, t_object *obj);
+int	create_add_cylinder(t_scene *scene, t_vec3 center, t_vec3 axis,
+				double diameter, double height, t_color color);
+
+// Validates Params objects
+int	validate_cylinder_params(t_vec3 axis, double diameter,
+					double height, t_color color);
+int validate_plane_params(t_vec3 normal, t_color color);
+int validate_sphere_params(double diameter, t_color color);
 
 #endif
