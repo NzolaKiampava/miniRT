@@ -31,17 +31,17 @@ double	vec3_length_squared(t_vec3 v)
 t_vec3	vec3_min(t_vec3 v1, t_vec3 v2)
 {
 	return (vec3_create(
-		fmin(v1.x, v2.x),
-		fmin(v1.y, v2.y),
-		fmin(v1.z, v2.z)
-	));
+			fmin(v1.x, v2.x),
+			fmin(v1.y, v2.y),
+			fmin(v1.z, v2.z)
+		));
 }
 
 t_vec3	vec3_max(t_vec3 v1, t_vec3 v2)
 {
 	return (vec3_create(
-		fmax(v1.x, v2.x),
-		fmax(v1.y, v2.y),
-		fmax(v1.z, v2.z)
-	));
+			fmax(v1.x, v2.x),
+			fmax(v1.y, v2.y),
+			fmax(v1.z, v2.z)
+		));
 }

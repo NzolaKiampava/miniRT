@@ -31,7 +31,6 @@ t_vec3	vec3_divide(t_vec3 v, double scalar)
 {
 	if (scalar == 0)
 	{
-		// Handle division by zero
 		return (vec3_create(0, 0, 0));
 	}
 	return (vec3_create(v.x / scalar, v.y / scalar, v.z / scalar));

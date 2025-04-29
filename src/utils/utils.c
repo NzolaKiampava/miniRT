@@ -6,7 +6,7 @@
 /*   By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 11:22:09 by nkiampav          #+#    #+#             */
-/*   Updated: 2025/04/04 11:22:57 by nkiampav         ###   ########.fr       */
+/*   Updated: 2025/04/29 13:22:28 by nkiampav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	count_elements(char **elements)
 void	free_split(char **split)
 {
 	int	i;
-	
+
 	if (!split)
 		return ;
 	i = 0;

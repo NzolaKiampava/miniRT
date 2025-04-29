@@ -15,36 +15,48 @@
 // Vector transformations
 t_vec3	vec3_rotate_x(t_vec3 v, double angle)
 {
-	double	rad = angle * M_PI / 180.0;
-	double	cos_a = cos(rad);
-	double	sin_a = sin(rad);
+	double	rad;
+	double	cos_a;
+	double	sin_a;
+
+	rad = angle * M_PI / 180.0;
+	cos_a = cos(rad);
+	sin_a = sin(rad);
 	return (vec3_create(
-		v.x,
-		v.y * cos_a - v.z * sin_a,
-		v.y * sin_a + v.z * cos_a
-	));
+			v.x,
+			v.y * cos_a - v.z * sin_a,
+			v.y * sin_a + v.z * cos_a
+		));
 }
 
 t_vec3	vec3_rotate_y(t_vec3 v, double angle)
 {
-	double	rad = angle * M_PI / 180.0;
-	double	cos_a = cos(rad);
-	double	sin_a = sin(rad);
+	double	rad;
+	double	cos_a;
+	double	sin_a;
+
+	rad = angle * M_PI / 180.0;
+	cos_a = cos(rad);
+	sin_a = sin(rad);
 	return (vec3_create(
-		v.x * cos_a + v.z * sin_a,
-		v.y,
-		-v.x * sin_a + v.z * cos_a
-	));
+			v.x * cos_a + v.z * sin_a,
+			v.y,
+			-v.x * sin_a + v.z * cos_a
+		));
 }
 
 t_vec3	vec3_rotate_z(t_vec3 v, double angle)
 {
-	double	rad = angle * M_PI / 180.0;
-	double	cos_a = cos(rad);
-	double	sin_a = sin(rad);
+	double		rad;
+	double		cos_a;
+	double		sin_a;
+
+	rad = (angle * M_PI) / 180.0;
+	cos_a = cos(rad);
+	sin_a = sin(rad);
 	return (vec3_create(
-		v.x * cos_a - v.y * sin_a,
-		v.x * sin_a + v.y * cos_a,
-		v.z
-	));
+			v.x * cos_a - v.y * sin_a,
+			v.x * sin_a + v.y * cos_a,
+			v.z
+		));
 }
