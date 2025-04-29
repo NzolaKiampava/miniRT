@@ -6,7 +6,7 @@
 /*   By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:50:05 by nkiampav          #+#    #+#             */
-/*   Updated: 2025/04/03 12:04:49 by nkiampav         ###   ########.fr       */
+/*   Updated: 2025/04/29 10:54:41 by nkiampav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,18 @@
  * @param color Color of the cylinder
  * @return Pointer to the newly created cylinder
  */
-t_cylinder	*cylinder_create(t_vec3 center, t_vec3 axis, double diameter,
-	double height, t_color color)
+t_cylinder	*cylinder_create(t_cylinder params)
 {
 	t_cylinder	*cylinder;
 
 	cylinder = (t_cylinder *)malloc(sizeof(t_cylinder));
 	if (!cylinder)
 		return (NULL);
-	cylinder->center = center;
-	cylinder->axis = vec3_normalize(axis);
-	cylinder->diameter = diameter;
-	cylinder->height = height;
-	cylinder->color = color;
+	cylinder->center = params.center;
+	cylinder->axis = vec3_normalize(params.axis);
+	cylinder->diameter = params.diameter;
+	cylinder->height = params.height;
+	cylinder->color = params.color;
 	return (cylinder);
 }
 

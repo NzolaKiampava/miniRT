@@ -6,7 +6,7 @@
 /*   By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:19:57 by nkiampav          #+#    #+#             */
-/*   Updated: 2025/03/14 15:37:26 by nkiampav         ###   ########.fr       */
+/*   Updated: 2025/04/29 11:02:59 by nkiampav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ typedef struct  s_object
 // Object creation function
 t_sphere    *sphere_create(t_vec3 center, double diameter, t_color color);
 t_plane     *plane_create(t_vec3 point, t_vec3 normal, t_color color);
-t_cylinder  *cylinder_create(t_vec3 center, t_vec3 axis, double diameter, double height, t_color color);
+t_cylinder  *cylinder_create(t_cylinder params);
 t_object    *object_create(int type, void *data);
 
 // Object utitility functions

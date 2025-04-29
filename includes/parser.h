@@ -6,7 +6,7 @@
 /*   By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:19:15 by nkiampav          #+#    #+#             */
-/*   Updated: 2025/04/09 13:14:55 by nkiampav         ###   ########.fr       */
+/*   Updated: 2025/04/29 11:02:19 by nkiampav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,7 @@ int validate_fov(double fov);
 int	validate_color_values(t_color color);
 int	validate_vector_normalized(t_vec3 vector);
 int	add_object_to_scene(t_scene *scene, t_object *obj);
-int	create_add_cylinder(t_scene *scene, t_vec3 center, t_vec3 axis,
-				double diameter, double height, t_color color);
+int	create_add_cylinder(t_scene *scene, t_cylinder params);
 
 // Validates Params objects
 int	validate_cylinder_params(t_vec3 axis, double diameter,

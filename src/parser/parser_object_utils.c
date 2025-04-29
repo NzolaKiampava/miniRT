@@ -6,19 +6,18 @@
 /*   By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:59:34 by nkiampav          #+#    #+#             */
-/*   Updated: 2025/04/09 13:59:23 by nkiampav         ###   ########.fr       */
+/*   Updated: 2025/04/29 10:55:10 by nkiampav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minirt.h"
 
-int create_add_cylinder(t_scene *scene, t_vec3 center, t_vec3 axis,
-				double diameter, double height, t_color color)
+int create_add_cylinder(t_scene *scene, t_cylinder params)
 {
 	t_cylinder  *cylinder;
 	t_object    *obj;
 
-	cylinder = cylinder_create(center, axis, diameter, height, color);
+	cylinder = cylinder_create(params);
 	if (!cylinder)
 		return (print_error(ERR_MEMORY), -1);
 	obj = object_create(OBJ_CYLINDER, cylinder);
