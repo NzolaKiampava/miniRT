@@ -6,7 +6,7 @@
 /*   By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 15:30:50 by nkiampav          #+#    #+#             */
-/*   Updated: 2025/04/09 14:35:58 by nkiampav         ###   ########.fr       */
+/*   Updated: 2025/04/25 16:17:39 by nkiampav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ t_vec3	parse_vector(char *str)
 		return (vec3_create(0, 0, 0));
 	}
 	vector = vec3_create(
-		ft_atof(parts[0]),
-		ft_atof(parts[1]),
-		ft_atof(parts[2])
-	);
+			ft_atof(parts[0]),
+			ft_atof(parts[1]),
+			ft_atof(parts[2])
+			);
 	free_split(parts);
 	return (vector);
 }
@@ -62,10 +62,10 @@ t_color	parse_color(char *str)
 		return (color_create(0, 0, 0));
 	}
 	color = color_create(
-		ft_atoi(parts[0]),
-		ft_atoi(parts[1]),
-		ft_atoi(parts[2])
-	);
+			ft_atoi(parts[0]),
+			ft_atoi(parts[1]),
+			ft_atoi(parts[2])
+			);
 	free_split(parts);
 	return (color);
 }
@@ -82,38 +82,41 @@ double	parse_double(char *str)
  * Split a line into elements
  * Returns a NULL-terminated array of strings, or NULL on error
 */
+
+static char	**allocate_elements(char *line)
+{
+	char	**elements = (char **)malloc(sizeof(char *) * (ft_strlen(line) + 1));
+	if (!elements)
+		print_error(ERR_MEMORY);
+	return (elements);
+}
+
+static char	*extract_element(char *line, int start, int end)
+{
+	char	*element = ft_substr(line, start, end - start);
+	if (!element)
+		print_error(ERR_MEMORY);
+	return (element);
+}
+
 char	**split_line(char *line)
 {
-	char	**elements;
-	int		i;
-	int		start;
-	int		count;
-
-	elements = (char **)malloc(sizeof(char *) * (ft_strlen(line) + 1));
+	char	**elements = allocate_elements(line);
+	int		i = 0, start, count = 0;
 	if (!elements)
-		return (print_error(ERR_MEMORY), NULL);
-	i = 0;
-	count = 0;
+		return (NULL);
 	while (line[i])
 	{
-		// Skip whitespace
 		while (line[i] && (line[i] == ' ' || line[i] == '\t'))
 			i++;
 		if (!line[i])
-			break;
-		// Mark end of element
+			break ;
 		start = i;
-		// Find end of element
 		while (line[i] && line[i] != ' ' && line[i] != '\t')
 			i++;
-		// Copy element
-		elements[count] = ft_substr(line, start, i - start);
-		if (!elements[count])
-		{
-			free_split(elements);
-			return (print_error(ERR_MEMORY), NULL);
-		}
-		count++;
+		elements[count] = extract_element(line, start, i);
+		if (!elements[count++])
+			return (free_split(elements), NULL);
 	}
 	elements[count] = NULL;
 	return (elements);

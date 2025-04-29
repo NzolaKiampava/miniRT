@@ -6,11 +6,11 @@
 /*   By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:50:05 by nkiampav          #+#    #+#             */
-/*   Updated: 2025/04/24 14:32:46 by nkiampav         ###   ########.fr       */
+/*   Updated: 2025/04/03 12:04:49 by nkiampav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../includes/minirt.h"
+#include "../../includes/minirt.h"
 
 /**
  * Creates a new cylinder object
@@ -49,6 +49,7 @@ t_vec3  cylinder_get_normal(t_cylinder *cylinder, t_vec3 point)
     t_vec3	axis_projection;
     double	projection_length;
     t_vec3	normal;
+
 
     center_to_point = vec3_subtract(point, cylinder->center);
     projection_length = vec3_dot(center_to_point, cylinder->axis);

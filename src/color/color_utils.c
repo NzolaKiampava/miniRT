@@ -6,7 +6,7 @@
 /*   By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 11:17:46 by nkiampav          #+#    #+#             */
-/*   Updated: 2025/04/17 16:08:27 by maalmeid         ###   ########.fr       */
+/*   Updated: 2025/04/24 14:57:14 by nkiampav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ t_color	color_multiply_colors(t_color c1, t_color c2)
 }
 
 // Color conversion
+// Convert RGB components to a single integer (0xRRGGBB format)
 int	color_to_int(t_color c)
 {
 	return (((c.r & 0xFF) << 16) | ((c.g & 0xFF) << 8) | (c.b & 0xFF));

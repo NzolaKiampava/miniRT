@@ -19,17 +19,17 @@
  * @param color Color of the sphere
  * @return Pointer to the newly created sphere
  */
-t_sphere    *sphere_create(t_vec3 center, double diameter, t_color color)
+t_sphere	*sphere_create(t_vec3 center, double diameter, t_color color)
 {
-    t_sphere    *sphere;
+	t_sphere	*sphere;
 
-    sphere = (t_sphere *)malloc(sizeof(t_sphere));
-    if (!sphere)
-        return (NULL);
-    sphere->center = center;
-    sphere->diameter = diameter;
-    sphere->color = color;
-    return (sphere);
+	sphere = (t_sphere *)malloc(sizeof(t_sphere));
+	if (!sphere)
+		return (NULL);
+	sphere->center = center;
+	sphere->diameter = diameter;
+	sphere->color = color;
+	return (sphere);
 }
 
 /**
@@ -38,13 +38,12 @@ t_sphere    *sphere_create(t_vec3 center, double diameter, t_color color)
  * @param point Point on the sphere
  * @return Normal vector at the point
  */
-t_vec3    sphere_get_normal(t_sphere *sphere, t_vec3 point)
+t_vec3	sphere_get_normal(t_sphere *sphere, t_vec3 point)
 {
-    t_vec3    normal;
+	t_vec3	normal;
 
-    // Calculate normal vector (direction from center to point)
-    normal = vec3_subtract(point, sphere->center);
-    return (vec3_normalize(normal));
+	normal = vec3_subtract(point, sphere->center);
+	return (vec3_normalize(normal));
 }
 
 /**
@@ -52,9 +51,9 @@ t_vec3    sphere_get_normal(t_sphere *sphere, t_vec3 point)
  * @param sphere Pointer to the sphere
  * @param translation Translation vector
  */
-void    sphere_translate(t_sphere *sphere, t_vec3 translation)
+void	sphere_translate(t_sphere *sphere, t_vec3 translation)
 {
-    sphere->center = vec3_add(sphere->center, translation);
+	sphere->center = vec3_add(sphere->center, translation);
 }
 
 /**
@@ -62,9 +61,8 @@ void    sphere_translate(t_sphere *sphere, t_vec3 translation)
  * @param sphere Pointer to the sphere
  * @param rotation Rotation vector (unused)
  */
-void    sphere_rotate(t_sphere *sphere, t_vec3 rotation)
+void	sphere_rotate(t_sphere *sphere, t_vec3 rotation)
 {
-    // Spheres look the same when rotated, so do nothing
-    (void)sphere;
-    (void)rotation;
+	(void)sphere;
+	(void)rotation;
 }

@@ -27,11 +27,10 @@ t_plane	*plane_create(t_vec3 point, t_vec3 normal, t_color color)
 	if (!plane)
 		return (NULL);
 	plane->point = point;
-	plane->normal = vec3_normalize(normal);	// Ensure normal is normalized
+	plane->normal = vec3_normalize(normal);
 	plane->color = color;
 	return (plane);
 }
-
 
 /**
  * Gets the normal vector at a point on a plane
@@ -41,7 +40,7 @@ t_plane	*plane_create(t_vec3 point, t_vec3 normal, t_color color)
  */
 t_vec3	plane_get_normal(t_plane *plane, t_vec3 point)
 {
-	(void)point;	// Plane normal is same at all points
+	(void)point;
 	return (plane->normal);
 }
 
@@ -62,7 +61,6 @@ void	plane_translate(t_plane *plane, t_vec3 translation)
  */
 void	plane_rotate(t_plane *plane, t_vec3 rotation)
 {
-	// Rotate normal vector
 	plane->normal = vec3_rotate_x(plane->normal, rotation.x);
 	plane->normal = vec3_rotate_y(plane->normal, rotation.y);
 	plane->normal = vec3_rotate_z(plane->normal, rotation.z);

@@ -6,12 +6,13 @@
 /*   By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:51:16 by nkiampav          #+#    #+#             */
-/*   Updated: 2025/04/17 15:34:58 by maalmeid         ###   ########.fr       */
+/*   Updated: 2025/04/24 15:12:11 by nkiampav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minirt.h"
 
+// Extract RGB components from integer
 t_color	int_to_color(int rgb)
 {
 	t_color	c;
@@ -22,12 +23,15 @@ t_color	int_to_color(int rgb)
 	return (c);
 }
 
+// Convert RGB color to a scalar value (usually average of components)
+// This is commonly used in lighting used in lighting calculations
 double	color_to_scalar(t_color c)
 {
 	return ((double)(c.r + c.g + c.b) / (3.0 * 255.0));
 }
 
 // Color utilities
+// Clamp RGB values to 0-255 range
 t_color	color_clamp(t_color c)
 {
 	t_color	result;
@@ -43,7 +47,7 @@ t_color	color_clamp(t_color c)
 	else if (c.g > 255)
 		result.g = 255;
 	else
-		result.r = c.g;
+		result.g = c.g;
 	if (c.b < 0)
 		result.b = 0;
 	else if (c.b > 255)
@@ -53,6 +57,7 @@ t_color	color_clamp(t_color c)
 	return (result);
 }
 
+// Linear interpolation between two colors
 t_color	color_lerp(t_color c1, t_color c2, double t)
 {
 	t_color	result;

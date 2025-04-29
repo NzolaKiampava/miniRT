@@ -6,7 +6,7 @@
 /*   By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:21:20 by nkiampav          #+#    #+#             */
-/*   Updated: 2025/04/09 14:19:53 by nkiampav         ###   ########.fr       */
+/*   Updated: 2025/04/24 16:35:07 by nkiampav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
  * Format: sp x,y,z r R,G,B
  * Returns 0 on success, -1 on error
 */
-static int	create_and_add_sphere(t_scene *scene, t_vec3 center, 
-                              double diameter, t_color color)
+static int	create_and_add_sphere(t_scene *scene, t_vec3 center,
+					double diameter, t_color color)
 {
 	t_sphere	*sphere;
 	t_object	*obj;
@@ -61,10 +61,10 @@ int	parse_sphere(char **line, t_scene *scene)
  * Format: pl x,y,z nx,ny,nz R,G,B
  * Returns 0 on success, -1 on error
 */
-static int	create_and_add_plane(t_scene *scene, t_vec3 point, 
-                             t_vec3 normal, t_color color)
+static int	create_and_add_plane(t_scene *scene, t_vec3 point,
+					t_vec3 normal, t_color color)
 {
-	t_plane	*plane;
+	t_plane		*plane;
 	t_object	*obj;
 
 	plane = plane_create(point, normal, color);
@@ -123,5 +123,5 @@ int	parse_cylinder(char **line, t_scene *scene)
 	if (validate_cylinder_params(axis, diameter, height, color) == -1)
 		return (-1);
 	return (create_add_cylinder(scene, center, axis, diameter,
-					height, color));
+			height, color));
 }

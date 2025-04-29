@@ -47,7 +47,6 @@ static char	*read_line(int fd)
 	bytesread = read(fd, &buffer[i], 1);
 	if (bytesread <= 0)
 		return (NULL);
-
 	while (bytesread > 0 && buffer[i] != '\n')
 	{
 		i++;
@@ -55,7 +54,6 @@ static char	*read_line(int fd)
 			break ;
 		bytesread = read(fd, &buffer[i], 1);
 	}
-
 	buffer[i] = '\0';
 	line = ft_strdup(buffer);
 	return (line);
@@ -104,17 +102,15 @@ int	parse_scene(char *filename, t_scene *scene)
 
 /**
  * Validate the scene configuration
+ 	Verify camera orientation is normalized
+ 	Check if camera FOV is valid
  * Returns 0 on success, -1 on error
 */
 int	validate_scene(t_scene *scene)
 {
-	// Verify camera orientation is normalized
 	if (fabs(vec3_length(scene->camera.orientation) - 1.0) > EPSILON)
 		scene->camera.orientation = vec3_normalize(scene->camera.orientation);
-
-	// Check if camera FOV is valid
 	if (scene->camera.fov <= 0 || scene->camera.fov >= 180)
 		return (print_error("Invalid camera FOV\n"), -1);
-
 	return (0);
 }
