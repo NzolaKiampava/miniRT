@@ -42,26 +42,25 @@ t_cylinder	*cylinder_create(t_cylinder params)
  * @param point Point on the cylinder
  * @return Normal vector at the point
  */
-t_vec3  cylinder_get_normal(t_cylinder *cylinder, t_vec3 point)
+t_vec3	cylinder_get_normal(t_cylinder *cylinder, t_vec3 point)
 {
-    t_vec3	center_to_point;
-    t_vec3	axis_projection;
-    double	projection_length;
-    t_vec3	normal;
+	t_vec3	center_to_point;
+	t_vec3	axis_projection;
+	double	projection_length;
+	t_vec3	normal;
 
-
-    center_to_point = vec3_subtract(point, cylinder->center);
-    projection_length = vec3_dot(center_to_point, cylinder->axis);
-    if (fabs(projection_length) >= cylinder->height / 2.0)
-    {
-        if (projection_length > 0)
-            return (cylinder->axis);
-        else
-            return (vec3_multiply(cylinder->axis, -1.0));
-    }
-    axis_projection = vec3_multiply(cylinder->axis, projection_length);
-    normal = vec3_subtract(center_to_point, axis_projection);
-    return (vec3_normalize(normal));
+	center_to_point = vec3_subtract(point, cylinder->center);
+	projection_length = vec3_dot(center_to_point, cylinder->axis);
+	if (fabs(projection_length) >= cylinder->height / 2.0)
+	{
+		if (projection_length > 0)
+			return (cylinder->axis);
+		else
+			return (vec3_multiply(cylinder->axis, -1.0));
+	}
+	axis_projection = vec3_multiply(cylinder->axis, projection_length);
+	normal = vec3_subtract(center_to_point, axis_projection);
+	return (vec3_normalize(normal));
 }
 
 /**
