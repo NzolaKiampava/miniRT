@@ -25,11 +25,9 @@ bool	check_extension(char *filename, char *ext)
 
 	if (!filename)
 		return (false);
-	
 	dot = ft_strrchr(filename, '.');
 	if (!dot)
 		return (false);
-	
 	return (strcmp(dot, ext) == 0);
 }
 
@@ -57,7 +55,7 @@ int	main(int argc, char **argv)
 	printf("Scene parsed. Number of objects: %d\n", scene.num_objects);
 	init_mlx(&scene);
 	render(&scene);
-	mlx_hook(scene.win, X_EVENT_KEY_PRESS, 1L<<0, key_press, &scene);
+	mlx_hook(scene.win, X_EVENT_KEY_PRESS, 1L << 0, key_press, &scene);
 	mlx_hook(scene.win, X_EVENT_CLOSE_WINDOW, 0, close_window, &scene);
 	mlx_loop(scene.mlx);
 	return (0);
