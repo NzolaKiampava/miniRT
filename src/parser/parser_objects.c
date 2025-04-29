@@ -6,7 +6,7 @@
 /*   By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:21:20 by nkiampav          #+#    #+#             */
-/*   Updated: 2025/04/29 11:00:12 by nkiampav         ###   ########.fr       */
+/*   Updated: 2025/04/29 11:44:06 by nkiampav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	parse_sphere(char **line, t_scene *scene)
 	if (count_elements(line) != 4)
 		return (print_error("Invalid sphere format\n"), -1);
 	center = parse_vector(line[1]);
-	diameter = parse_double(line[2]);
+	diameter = ft_atof(line[2]);
 	color = parse_color(line[3]);
 	if (validate_sphere_params(diameter, color) == -1)
 		return (-1);
@@ -107,16 +107,17 @@ int	parse_plane(char **line, t_scene *scene)
 */
 int	parse_cylinder(char **line, t_scene *scene)
 {
-	t_cylinder params;
+	t_cylinder	params;
 
 	if (count_elements(line) != 6)
 		return (print_error("Invalid cylinder format\n"), -1);
 	params.center = parse_vector(line[1]);
 	params.axis = parse_vector(line[2]);
-	params.diameter = parse_double(line[3]);
-	params.height = parse_double(line[4]);
+	params.diameter = ft_atof(line[3]);
+	params.height = ft_atof(line[4]);
 	params.color = parse_color(line[5]);
-	if (validate_cylinder_params(params.axis, params.diameter, params.height, params.color) == -1)
+	if (validate_cylinder_params(params.axis, params.diameter,
+			params.height, params.color) == -1)
 		return (-1);
 	return (create_add_cylinder(scene, params));
 }

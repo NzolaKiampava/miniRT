@@ -6,7 +6,7 @@
 /*   By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 15:30:50 by nkiampav          #+#    #+#             */
-/*   Updated: 2025/04/25 16:17:39 by nkiampav         ###   ########.fr       */
+/*   Updated: 2025/04/29 11:44:45 by nkiampav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,10 @@ t_color	parse_color(char *str)
 	char	**parts;
 	int		i;
 
+	i = 0;
 	parts = ft_split(str, ',');
 	if (!parts)
 		return (color_create(0, 0, 0));
-	i = 0;
 	while (parts[i])
 		i++;
 	if (i != 3)
@@ -71,21 +71,15 @@ t_color	parse_color(char *str)
 }
 
 /**
- * Parse a double from a string
- */
-double	parse_double(char *str)
-{
-	return (ft_atof(str));
-}
-
-/**
  * Split a line into elements
  * Returns a NULL-terminated array of strings, or NULL on error
 */
 
 static char	**allocate_elements(char *line)
 {
-	char	**elements = (char **)malloc(sizeof(char *) * (ft_strlen(line) + 1));
+	char	**elements;
+
+	elements = (char **)malloc(sizeof(char *) * (ft_strlen(line) + 1));
 	if (!elements)
 		print_error(ERR_MEMORY);
 	return (elements);
@@ -93,7 +87,9 @@ static char	**allocate_elements(char *line)
 
 static char	*extract_element(char *line, int start, int end)
 {
-	char	*element = ft_substr(line, start, end - start);
+	char	*element;
+
+	element = ft_substr(line, start, end - start);
 	if (!element)
 		print_error(ERR_MEMORY);
 	return (element);
@@ -101,8 +97,14 @@ static char	*extract_element(char *line, int start, int end)
 
 char	**split_line(char *line)
 {
-	char	**elements = allocate_elements(line);
-	int		i = 0, start, count = 0;
+	char	**elements;
+	int		i;
+	int		count;
+	int		start;
+
+	i = 0;
+	count = 0;
+	elements = allocate_elements(line);
 	if (!elements)
 		return (NULL);
 	while (line[i])

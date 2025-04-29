@@ -6,7 +6,7 @@
 /*   By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:21:04 by nkiampav          #+#    #+#             */
-/*   Updated: 2025/04/09 14:36:03 by nkiampav         ###   ########.fr       */
+/*   Updated: 2025/04/29 11:41:34 by nkiampav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
  * Parse a line from the scene file
  * Returns 0 on success, -1 on error
 */
-static int	parse_line(char **elements, t_scene *scene)
+int	parse_line(char **elements, t_scene *scene)
 {
 	if (!elements[0])
 		return (0);
@@ -36,29 +36,6 @@ static int	parse_line(char **elements, t_scene *scene)
 		return (print_error("Unknown element type\n"), -1);
 }
 
-static char	*read_line(int fd)
-{
-	char	buffer[4096];
-	char	*line;
-	int		i;
-	int		bytesread;
-
-	i = 0;
-	bytesread = read(fd, &buffer[i], 1);
-	if (bytesread <= 0)
-		return (NULL);
-	while (bytesread > 0 && buffer[i] != '\n')
-	{
-		i++;
-		if (i >= 4095)
-			break ;
-		bytesread = read(fd, &buffer[i], 1);
-	}
-	buffer[i] = '\0';
-	line = ft_strdup(buffer);
-	return (line);
-}
-
 /**
  * Parses a scene file and fills the scene structure
  * Returns 0 on sucess, -1 on error
@@ -66,9 +43,7 @@ static char	*read_line(int fd)
 int	parse_scene(char *filename, t_scene *scene)
 {
 	int	fd;
-	char	*line;
-	char	**elements;
-	int		ret;
+	int	ret;
 
 	if (!check_extension(filename, ".rt"))
 		return (print_error(ERR_FORMAT), -1);
@@ -76,25 +51,7 @@ int	parse_scene(char *filename, t_scene *scene)
 	if (fd < 0)
 		return (print_error(ERR_FILE), -1);
 	scene_init(scene);
-	ret = 0;
-	while (ret == 0 && (line = read_line(fd)) != NULL)
-	{
-		if (line[0] == '\0' || line[0] == '#')
-		{
-			free(line);
-			continue ;
-		}
-		elements = split_line(line);
-		if (!elements)
-			ret = -1;
-		else
-		{
-			ret = parse_line(elements, scene);
-			free_split(elements);
-		}
-		free(line);
-	}
-	close(fd);
+	ret = process_file(fd, scene);
 	if (ret == 0)
 		ret = validate_scene(scene);
 	return (ret);

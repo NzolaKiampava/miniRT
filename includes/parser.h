@@ -6,7 +6,7 @@
 /*   By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:19:15 by nkiampav          #+#    #+#             */
-/*   Updated: 2025/04/29 11:02:19 by nkiampav         ###   ########.fr       */
+/*   Updated: 2025/04/29 11:44:52 by nkiampav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ int parse_cylinder(char **line, t_scene *scene);
 // Helper parsing function
 t_vec3  parse_vector(char *str);
 t_color parse_color(char *str);
-double  parse_double(char *str);
 char    **split_line(char *line);
 void    free_split(char **split);
 int     count_elements(char **split);
+int		parse_line(char **elements, t_scene *scene);
 
 // Validation functions
 int validate_scene(t_scene *scene);
@@ -50,5 +50,9 @@ int	validate_cylinder_params(t_vec3 axis, double diameter,
 					double height, t_color color);
 int validate_plane_params(t_vec3 normal, t_color color);
 int validate_sphere_params(double diameter, t_color color);
+
+// Utils
+int	process_line(char *line, t_scene *scene);
+int	process_file(int fd, t_scene *scene);
 
 #endif

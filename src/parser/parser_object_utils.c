@@ -12,10 +12,10 @@
 
 #include "../../includes/minirt.h"
 
-int create_add_cylinder(t_scene *scene, t_cylinder params)
+int	create_add_cylinder(t_scene *scene, t_cylinder params)
 {
-	t_cylinder  *cylinder;
-	t_object    *obj;
+	t_cylinder	*cylinder;
+	t_object	*obj;
 
 	cylinder = cylinder_create(params);
 	if (!cylinder)
@@ -37,7 +37,8 @@ int create_add_cylinder(t_scene *scene, t_cylinder params)
 int	add_object_to_scene(t_scene *scene, t_object *obj)
 {
 	t_object	**new_objects;
-	int		i;
+	int			i;
+
 	new_objects = malloc(sizeof(t_object *) * (scene->num_objects + 1));
 	if (!new_objects)
 		return (-1);

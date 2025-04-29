@@ -6,7 +6,7 @@
 /*   By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 12:20:15 by nkiampav          #+#    #+#             */
-/*   Updated: 2025/04/09 13:57:26 by nkiampav         ###   ########.fr       */
+/*   Updated: 2025/04/29 11:44:28 by nkiampav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	parse_ambient(char **elements, t_scene *scene)
 	count = count_elements(elements);
 	if (count != 3)
 		return (print_error("Invalid ambient lighting format\n"), -1);
-	ratio = parse_double(elements[1]);
+	ratio = ft_atof(elements[1]);
 	color = parse_color(elements[2]);
 	if (ratio < 0.0 || ratio > 1.0 || !validate_color_values(color))
 		return (print_error("Invalid ambient parameters\n"), -1);
@@ -52,7 +52,7 @@ int	parse_camera(char **elements, t_scene *scene)
 		return (print_error("Invalid camera format\n"), -1);
 	position = parse_vector(elements[1]);
 	orientation = parse_vector(elements[2]);
-	fov = parse_double(elements[3]);
+	fov = ft_atof(elements[3]);
 	if (!validate_vector_normalized(orientation) || fov <= 0 || fov >= 180)
 		return (print_error("Invalid camera parameters\n"), -1);
 	orientation = vec3_normalize(orientation);
@@ -76,7 +76,7 @@ int	parse_light(char **elements, t_scene *scene)
 	if (count != 3 && count != 4)
 		return (print_error("Invalid light format\n"), -1);
 	light.position = parse_vector(elements[1]);
-	light.brightness = parse_double(elements[2]);
+	light.brightness = ft_atof(elements[2]);
 	if (count == 4)
 		light.color = parse_color(elements[3]);
 	else
