@@ -6,7 +6,7 @@
 /*   By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 12:08:04 by nkiampav          #+#    #+#             */
-/*   Updated: 2025/04/04 11:11:59 by nkiampav         ###   ########.fr       */
+/*   Updated: 2025/05/01 09:54:33 by nkiampav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,19 @@ void	scene_init(t_scene *scene)
 	scene->lights = NULL;
 	scene->num_lights = 0;
 	scene->max_lights = 0;
+
+	scene->lights = NULL;
+	scene->num_lights = 0;
+	scene->max_lights = 0;
 	
 	// MiniLibX pointers
 	scene->mlx = NULL;
 	scene->win = NULL;
+
+	// Initialize object manipulation
+	scene->selected_obj_index = 0;          // select first object by default
+	scene->rotation_mode = false;
+	scene->resize_height_mode = false;
 }
 
 int	scene_add_object(t_scene *scene, t_object *obj)

@@ -6,7 +6,7 @@
 /*   By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:50:38 by nkiampav          #+#    #+#             */
-/*   Updated: 2025/04/11 15:08:39 by nkiampav         ###   ########.fr       */
+/*   Updated: 2025/05/01 09:50:00 by nkiampav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	render(t_scene *scene)
 	mlx_destroy_image(scene->mlx, img);
 }
 
+/*
 int	key_press(int keycode, void *param)
 {
 	t_scene	*scene;
@@ -62,7 +63,7 @@ int	key_press(int keycode, void *param)
 	}
 	return (0);
 }
-
+*/
 void	init_mlx(t_scene *scene)
 {
 	scene->mlx = mlx_init();

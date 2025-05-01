@@ -6,7 +6,7 @@
 /*   By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:20:47 by nkiampav          #+#    #+#             */
-/*   Updated: 2025/04/24 14:55:48 by nkiampav         ###   ########.fr       */
+/*   Updated: 2025/05/01 11:23:50 by nkiampav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,13 @@ int	main(int argc, char **argv)
 		print_error(ERR_SCENE);
 	printf("Scene parsed. Number of objects: %d\n", scene.num_objects);
 	init_mlx(&scene);
+	// Display help information at start
+	display_help();
+	if (scene.num_objects > 0)
+	{
+		scene.selected_obj_index = 0;
+		//display_object_info(&scene);
+	}
 	render(&scene);
 	mlx_hook(scene.win, X_EVENT_KEY_PRESS, 1L << 0, key_press, &scene);
 	mlx_hook(scene.win, X_EVENT_CLOSE_WINDOW, 0, close_window, &scene);

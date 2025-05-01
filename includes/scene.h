@@ -6,7 +6,7 @@
 /*   By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:20:08 by nkiampav          #+#    #+#             */
-/*   Updated: 2025/04/10 16:17:30 by nkiampav         ###   ########.fr       */
+/*   Updated: 2025/05/01 12:22:59 by nkiampav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,21 +38,51 @@ typedef struct  s_ambient
     t_color color;
 }   t_ambient;
 
+// new typedef implemented
+
+typedef struct s_ray_casting
+{
+    double  aspect_ratio;
+    double  viewport_height;
+    double  viewport_width;
+    t_vec3  viewport_u;
+    t_vec3  viewport_v;
+    t_vec3  viewport_lower_left;
+    t_vec3  horizontal;
+    t_vec3  vertical;
+    t_vec3  origin;
+}   t_ray_casting;
+
+typedef struct  s_mlx_img
+{
+    void    *img;
+    char    *addr;
+    int     bits_per_pixel;
+    int     line_length;
+    int     endian;
+}   t_mlx_img;
+
+// ------------------------------
+
 typedef struct  s_scene
 {
     t_ambient   ambient;
     t_camera    camera;
+    t_object    **objects;
     t_light     *lights;
     int         num_lights;
-    t_object    **objects;
+    int         max_lights;
     int         num_objects;
     int         max_objects;
-    int         max_lights;
     void        *mlx;               // mlx connection  pointer
     void        *win;               // window pointer
-    int         selected_object;    // Index of currently selected object
-}   t_scene;    
+    t_mlx_img   img;
 
+    // Object manipulation properties
+    int         selected_obj_index;    // Index of currently selected object
+    bool        rotation_mode;
+    bool        resize_height_mode;
+}   t_scene;    
 
 // Scene initialization and management
 void    scene_init(t_scene *scene);

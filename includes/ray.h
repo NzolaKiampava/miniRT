@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkiampav <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:19:44 by nkiampav          #+#    #+#             */
-/*   Updated: 2025/02/27 09:19:46 by nkiampav         ###   ########.fr       */
+/*   Updated: 2025/05/01 08:35:38 by nkiampav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ typedef struct  s_hit_info
     void    *object;                 // Pointer to hit object
     int     type;                    // Type of the hit object
 }   t_hit_info;
-
 
 // Ray functions
 t_ray ray_create(t_vec3 origin, t_vec3 direction);

@@ -6,7 +6,7 @@
 /*   By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:18:56 by nkiampav          #+#    #+#             */
-/*   Updated: 2025/04/11 09:51:58 by nkiampav         ###   ########.fr       */
+/*   Updated: 2025/05/01 10:44:04 by nkiampav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,15 @@
 
 /* Key codes */
 # define KEY_ESC 65307
+# define KEY_LEFT 65361
+# define KEY_UP 65362
+# define KEY_RIGHT 65363
+# define KEY_DOWN 65364
+# define KEY_TAB 65289
+# define KEY_R 114
+# define KEY_PLUS 61
+# define KEY_MINUS 45
+# define KEY_H 104
 
 /* Event codes */
 # define X_EVENT_KEY_PRESS 2
@@ -64,9 +73,22 @@ void	render(t_scene *scene);
 void    my_mlx_pixel_put(void *img, char *addr, int x, int y, int color,
         int bits_per_pixel, int line_length);
 bool    check_extension(char *filename, char *ext);
-void    free_scene(t_scene *scene);
-void    init_scene(t_scene *scene);
 void    print_error(char *message);
+
+// Help Functions
+void    display_help(void);
+void	display_object_info(t_scene *scene);
+
+// new functions added
+void	select_next_object(t_scene *scene);
+void	toggle_rotation_mode(t_scene *scene);
+void	handle_arrow_keys(int keycode, t_scene *scene);
+void	apply_translation(t_object *obj, int keycode, double step);
+void	apply_rotation(t_object *obj, int keycode, double step);
+void	handle_resize(int keycode, t_scene *scene);
+void	resize_sphere(t_sphere *sphere, int keycode, double step);
+void	resize_cylinder(t_cylinder *cylinder, int keycode, double step, t_scene *scene);
+void	toggle_resize_mode(t_scene *scene);
 
 #endif
 
