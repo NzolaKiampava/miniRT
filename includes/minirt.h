@@ -6,7 +6,7 @@
 /*   By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:18:56 by nkiampav          #+#    #+#             */
-/*   Updated: 2025/05/01 10:44:04 by nkiampav         ###   ########.fr       */
+/*   Updated: 2025/05/09 08:52:47 by nkiampav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,14 +81,12 @@ void	display_object_info(t_scene *scene);
 
 // new functions added
 void	select_next_object(t_scene *scene);
-void	toggle_rotation_mode(t_scene *scene);
 void	handle_arrow_keys(int keycode, t_scene *scene);
 void	apply_translation(t_object *obj, int keycode, double step);
 void	apply_rotation(t_object *obj, int keycode, double step);
 void	handle_resize(int keycode, t_scene *scene);
 void	resize_sphere(t_sphere *sphere, int keycode, double step);
 void	resize_cylinder(t_cylinder *cylinder, int keycode, double step, t_scene *scene);
-void	toggle_resize_mode(t_scene *scene);
 
 #endif
 
