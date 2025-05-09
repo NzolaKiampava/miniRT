@@ -6,7 +6,7 @@
 /*   By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 10:00:00 by nkiampav          #+#    #+#             */
-/*   Updated: 2025/04/11 15:09:16 by nkiampav         ###   ########.fr       */
+/*   Updated: 2025/05/06 11:29:26 by nkiampav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,17 +53,19 @@ int ray_intersect_sphere(t_ray ray, void *object, t_hit_info *hit)
 // Ray-plane intersection
 int ray_intersect_plane(t_ray ray, void *object, t_hit_info *hit)
 {
-    t_plane *plane = (t_plane *)object;
-    double denom = vec3_dot(plane->normal, ray.direction);
+    double  denom;
+    double  t;
+    t_plane *plane;
+    t_vec3  p0l0;
+    
+    plane = (t_plane *)object;
+    denom = vec3_dot(plane->normal, ray.direction);
     if (fabs(denom) < EPSILON)
         return (0);
-    
-    t_vec3 p0l0 = vec3_subtract(plane->point, ray.origin);
-    double t = vec3_dot(p0l0, plane->normal) / denom;
-    
+    p0l0 = vec3_subtract(plane->point, ray.origin);
+    t = vec3_dot(p0l0, plane->normal) / denom;
     if (t < EPSILON)
         return (0);
-    
     if (hit != NULL && (hit->t < 0 || t < hit->t))
     {
         hit->t = t;
@@ -80,6 +82,7 @@ int ray_intersect_plane(t_ray ray, void *object, t_hit_info *hit)
     return (0);
 }
 
+// Need to be splited
 // Ray-cylinder intersection
 int ray_intersect_cylinder(t_ray ray, void *object, t_hit_info *hit)
 {
@@ -183,7 +186,8 @@ int ray_intersect_any(t_ray ray, void **objects, int num_objects, t_hit_info *hi
 
     hit_found = 0;
     temp_hit.t = -1;
-    for (i = 0; i < num_objects; i++)
+    i = 0;
+    while (i < num_objects)
     {
         obj = (t_object *)objects[i];
         switch (obj->type)
@@ -203,6 +207,7 @@ int ray_intersect_any(t_ray ray, void **objects, int num_objects, t_hit_info *hi
             default:
                 break;
         }
+        i++;
     }
     if (hit_found && hit != NULL)
         *hit = temp_hit;

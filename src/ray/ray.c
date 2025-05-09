@@ -6,7 +6,7 @@
 /*   By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:23:37 by nkiampav          #+#    #+#             */
-/*   Updated: 2025/04/11 08:47:56 by nkiampav         ###   ########.fr       */
+/*   Updated: 2025/05/06 11:37:06 by nkiampav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,13 @@ t_vec3 ray_at(t_ray ray, double t)
 }
 
 // Transform ray by translation
+// Direction remains unchanged
 t_ray   ray_transformation(t_ray ray, t_vec3 translation)
 {
     t_ray transformed;
 
     transformed.origin = vec3_add(ray.origin, translation);
-    transformed.direction = ray.direction;  // Direction remains unchanged
+    transformed.direction = ray.direction;
     return (transformed);
 }
 

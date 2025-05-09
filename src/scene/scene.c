@@ -6,7 +6,7 @@
 /*   By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 12:08:04 by nkiampav          #+#    #+#             */
-/*   Updated: 2025/05/01 09:54:33 by nkiampav         ###   ########.fr       */
+/*   Updated: 2025/05/06 12:46:46 by nkiampav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,11 @@ void	scene_init(t_scene *scene)
 	scene->resize_height_mode = false;
 }
 
+// If no space, allocate initial array or expand
 int	scene_add_object(t_scene *scene, t_object *obj)
 {
 	t_object	**new_objects;
 
-	// If no space, allocate initial array or expand
 	if (scene->max_objects == 0)
 	{
 		scene->objects = malloc(sizeof(t_object *) * 10);
@@ -60,7 +60,6 @@ int	scene_add_object(t_scene *scene, t_object *obj)
 	}
 	else if (scene->num_objects >= scene->max_objects)
 	{
-		// Expand array when full
 		new_objects = realloc(scene->objects, 
 			sizeof(t_object *) * (scene->max_objects + 10));
 		if (!new_objects)
@@ -68,19 +67,16 @@ int	scene_add_object(t_scene *scene, t_object *obj)
 		scene->objects = new_objects;
 		scene->max_objects += 10;
 	}
-
-	// Add object
 	scene->objects[scene->num_objects] = obj;
 	scene->num_objects++;
-
 	return (0);
 }
 
+// If no space, allocate initial array or expand
 int	scene_add_light(t_scene *scene, t_light light)
 {
 	t_light	*new_lights;
 
-	// If no space, allocate initial array or expand
 	if (scene->max_lights == 0)
 	{
 		scene->lights = malloc(sizeof(t_light) * 5);
@@ -90,7 +86,6 @@ int	scene_add_light(t_scene *scene, t_light light)
 	}
 	else if (scene->num_lights >= scene->max_lights)
 	{
-		// Expand array when full
 		new_lights = realloc(scene->lights, 
 			sizeof(t_light) * (scene->max_lights + 5));
 		if (!new_lights)
@@ -98,33 +93,28 @@ int	scene_add_light(t_scene *scene, t_light light)
 		scene->lights = new_lights;
 		scene->max_lights += 5;
 	}
-
-	// Add light
 	scene->lights[scene->num_lights] = light;
 	scene->num_lights++;
-
 	return (0);
 }
 
+// Maximum recursion depth
+// Find closest intersection
+	// Calculate lighting for the hit point
+// Background color if no intersection - Sky blue
 t_color	scene_trace_ray(t_scene *scene, t_ray ray, int depth)
 {
 	t_hit_info	hit;
 	t_color		color;
 
-	// Maximum recursion depth
 	if (depth > MAX_RAY_DEPTH)
 		return (color_create(0, 0, 0));
-
-	// Find closest intersection
 	if (ray_intersect_any(ray, (void **)scene->objects, scene->num_objects, &hit))
 	{
-		// Calculate lighting for the hit point
 		color = scene_calculate_lighting(scene, hit);
 		return (color);
 	}
-
-	// Background color if no intersection
-	return (color_create(135, 206, 235)); // Sky blue
+	return (color_create(135, 206, 235));
 }
 
 t_color scene_calculate_lighting(t_scene *scene, t_hit_info hit)
