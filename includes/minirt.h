@@ -6,7 +6,7 @@
 /*   By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:18:56 by nkiampav          #+#    #+#             */
-/*   Updated: 2025/05/09 08:52:47 by nkiampav         ###   ########.fr       */
+/*   Updated: 2025/05/14 13:26:20 by nkiampav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,7 @@ int     close_window(void *param);
 int     key_press(int keycode, void *param);
 void    render_scene(t_scene *scene, void *mlx, void *win);
 void	render(t_scene *scene);
-void    my_mlx_pixel_put(void *img, char *addr, int x, int y, int color,
-        int bits_per_pixel, int line_length);
+void	my_mlx_pixel_put(t_mlx_img	*img_data, int x, int y, int color);
 bool    check_extension(char *filename, char *ext);
 void    print_error(char *message);
 
