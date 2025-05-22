@@ -66,16 +66,16 @@
 
 /* Function prototypes */
 void	init_mlx(t_scene *scene);
-int     close_window(void *param);
-int     key_press(int keycode, void *param);
-void    render_scene(t_scene *scene, void *mlx, void *win);
+int		close_window(void *param);
+int		key_press(int keycode, void *param);
+void	render_scene(t_scene *scene, void *mlx, void *win);
 void	render(t_scene *scene);
 void	my_mlx_pixel_put(t_mlx_img	*img_data, int x, int y, int color);
-bool    check_extension(char *filename, char *ext);
-void    print_error(char *message);
+bool	check_extension(char *filename, char *ext);
+void	print_error(char *message);
 
 // Help Functions
-void    display_help(void);
+void	display_help(void);
 void	display_object_info(t_scene *scene);
 
 // new functions added
@@ -85,7 +85,7 @@ void	apply_translation(t_object *obj, int keycode, double step);
 void	apply_rotation(t_object *obj, int keycode, double step);
 void	handle_resize(int keycode, t_scene *scene);
 void	resize_sphere(t_sphere *sphere, int keycode, double step);
-void	resize_cylinder(t_cylinder *cylinder, int keycode, double step, t_scene *scene);
+void	resize_cylinder(t_cylinder *cylinder, int keycode, double step,
+			t_scene *scene);
 
 #endif
-

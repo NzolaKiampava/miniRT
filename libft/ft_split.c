@@ -115,7 +115,7 @@ char	**ft_split(char const *s, char c)
 
 	if (!s)
 	{
-		strs = malloc(sizeof(char*) * 1);
+		strs = malloc(sizeof(char *) * 1);
 		if (!strs)
 			return (NULL);
 		*strs = NULL;
