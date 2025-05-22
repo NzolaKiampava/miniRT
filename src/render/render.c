@@ -6,7 +6,7 @@
 /*   By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:50:38 by nkiampav          #+#    #+#             */
-/*   Updated: 2025/05/14 13:58:11 by nkiampav         ###   ########.fr       */
+/*   Updated: 2025/05/22 08:06:13 by nkiampav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,15 @@ void	render(t_scene *scene)
 		x = 0;
 		while (x < WINDOW_WIDTH)
 		{
-			t_ray ray = camera_ray(
+			t_camera_params cam_params = {
 				scene->camera.position,
 				scene->camera.orientation,
 				scene->camera.fov,
-				(double)WINDOW_WIDTH / WINDOW_HEIGHT,
-				x, y
-			);
+				(double)WINDOW_WIDTH / WINDOW_HEIGHT
+			};
+			t_pixel_coords pixel = {x, y};
+			
+			t_ray ray = camera_ray(cam_params, pixel);
 			pixel_color = scene_trace_ray(scene, ray, 0);
 			my_mlx_pixel_put(&img_data, x, y, color_to_int(pixel_color));
 			x++;

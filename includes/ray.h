@@ -6,7 +6,7 @@
 /*   By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:19:44 by nkiampav          #+#    #+#             */
-/*   Updated: 2025/05/14 13:52:37 by nkiampav         ###   ########.fr       */
+/*   Updated: 2025/05/22 08:04:21 by nkiampav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,20 @@
 
 # include "vector.h"
 # include "color.h"
+
+typedef struct s_camera_params
+{
+    t_vec3  origin;
+    t_vec3  direction;
+    double  fov;
+    double  aspect_ratio;
+}   t_camera_params;
+
+typedef struct  s_pixel_coords
+{
+    double  x;
+    double  y;
+}   t_pixel_coords;
 
 typedef struct s_ray
 {
@@ -44,6 +58,6 @@ int ray_intersect_cylinder(t_ray ray, void *cylinder, t_hit_info *hit);
 int ray_intersect_any(t_ray ray, void **object, int num_objects, t_hit_info *hit);
 
 // Camera ray generation
-t_ray   camera_ray(t_vec3 origin, t_vec3 directoin, double fov, double aspect_ratio, double x, double y);
+t_ray   camera_ray(t_camera_params cam_params, t_pixel_coords pixel);
 
 #endif
