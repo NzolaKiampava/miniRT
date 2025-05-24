@@ -6,7 +6,7 @@
 #    By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/05 10:11:29 by nkiampav          #+#    #+#              #
-#    Updated: 2025/04/04 12:38:30 by nkiampav         ###   ########.fr        #
+#    Updated: 2025/05/24 16:39:24 by nkiampav         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,13 +29,53 @@ MLXFLAGS	= -L$(MINILIBX_DIR) -lmlx -lXext -lX11 -lm
 # Math library
 MATHFLAGS	= -lm
 
-# Source files - adjusted to match the actual directory structure
-SRC_DIRS	= main parser vector ray render objects scene utils color
-SRCS		= $(foreach dir,$(SRC_DIRS),$(wildcard $(SRC_DIR)/$(dir)/*.c))
-OBJS		= $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRCS))
+# Source files - explicitly listed without wildcards
+SRCS		= $(SRC_DIR)/main/main.c \
+			  $(SRC_DIR)/main/help.c \
+			  $(SRC_DIR)/main/key_handler.c \
+			  $(SRC_DIR)/main/resize.c \
+			  $(SRC_DIR)/parser/parser.c \
+			  $(SRC_DIR)/parser/parser_objects.c \
+			  $(SRC_DIR)/parser/parser_object_utils.c \
+			  $(SRC_DIR)/parser/parser_scene.c \
+			  $(SRC_DIR)/parser/parser_utils.c \
+			  $(SRC_DIR)/parser/parser_utils_2.c \
+			  $(SRC_DIR)/parser/parser_validates.c \
+			  $(SRC_DIR)/vector/vec3_optns.c \
+			  $(SRC_DIR)/vector/vec3_extreme.c \
+			  $(SRC_DIR)/vector/vector_utils.c \
+			  $(SRC_DIR)/vector/vector.c \
+			  $(SRC_DIR)/vector/vec3_rotate.c \
+			  $(SRC_DIR)/ray/ray.c \
+			  $(SRC_DIR)/ray/cylinder_calculus.c \
+			  $(SRC_DIR)/ray/intersect_utils.c \
+			  $(SRC_DIR)/ray/intersect.c \
+			  $(SRC_DIR)/objects/sphere.c \
+			  $(SRC_DIR)/objects/plane.c \
+			  $(SRC_DIR)/objects/cylinder.c \
+			  $(SRC_DIR)/objects/objects.c \
+			  $(SRC_DIR)/objects/object_utils.c \
+			  $(SRC_DIR)/render/render.c \
+			  $(SRC_DIR)/render/render_utils.c \
+			  $(SRC_DIR)/scene/scene.c \
+			  $(SRC_DIR)/scene/scene_utils.c \
+			  $(SRC_DIR)/scene/scene_free.c \
+			  $(SRC_DIR)/scene/lighting_calculus.c \
+			  $(SRC_DIR)/color/color_rgb.c \
+			  $(SRC_DIR)/color/color_utils.c \
+			  $(SRC_DIR)/color/color.c \
+			  $(SRC_DIR)/utils/utils.c
 
-# Header files
-INCS		= $(wildcard $(INC_DIR)/*.h)
+OBJS		= $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
+
+# Header files - explicitly listed
+INCS		= $(INC_DIR)/minirt.h \
+			  $(INC_DIR)/parser.h \
+			  $(INC_DIR)/vector.h \
+			  $(INC_DIR)/ray.h \
+			  $(INC_DIR)/objects.h \
+			  $(INC_DIR)/scene.h \
+			  $(INC_DIR)/color.h
 
 # Libft
 LIBFT_DIR	= libft
@@ -97,4 +137,3 @@ help:
 	@echo "  clean   : Remove object files"
 	@echo "  fclean  : Remove object files and executable"
 	@echo "  re      : Rebuild the project"
-	@echo "  bonus   : Build with bonus features"

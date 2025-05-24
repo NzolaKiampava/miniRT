@@ -6,18 +6,13 @@
 /*   By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:15:48 by nkiampav          #+#    #+#             */
-/*   Updated: 2025/05/09 08:55:23 by nkiampav         ###   ########.fr       */
+/*   Updated: 2025/05/24 16:06:52 by nkiampav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minirt.h"
 
-/**
- * Handles keyboard input for key H (toggle resize mode for cylinder)
- * and displays help information
- * @param keycode The key code
- * @param scene Scene pointer
- */
+//Handles keyboard input for key H (toggle resize mode for cylinder)
 void	handle_key_h(int keycode, t_scene *scene)
 {
 	t_object	*obj;
@@ -41,12 +36,7 @@ void	handle_key_h(int keycode, t_scene *scene)
 	}
 }
 
-/**
-* Handles key press events for object manipulation
-* @param keycode The key code
-* @param param Scene pointer (cast to t_scene*)
-* @return Always returns 0
-*/
+//Handles key press events for object manipulation
 int	key_press(int keycode, void *param)
 {
 	t_scene	*scene;
@@ -72,11 +62,7 @@ int	key_press(int keycode, void *param)
 	return (0);
 }
 
-/**
-* Handles arrow key inputs for object manipulation
-* @param keycode The key code
-* @param scene Scene pointer
-*/
+//Handles arrow key inputs for object manipulation
 void	handle_arrow_keys(int keycode, t_scene *scene)
 {
 	t_object	*obj;
@@ -100,12 +86,7 @@ void	handle_arrow_keys(int keycode, t_scene *scene)
 	render(scene);
 }
 
-/**
-* Applies translation to an object based on key input
-* @param obj Object to translate
-* @param keycode The key code
-* @param step Step size for translation
-*/
+//Applies translation to an object based on key input
 void	apply_translation(t_object *obj, int keycode, double step)
 {
 	t_vec3	translation;
@@ -122,12 +103,7 @@ void	apply_translation(t_object *obj, int keycode, double step)
 	object_translate(obj, translation);
 }
 
-/**
-* Applies rotation to an object based on key input
-* @param obj Object to rotate
-* @param keycode The key code
-* @param step Step size for rotation (in degrees)
-*/
+//Applies rotation to an object based on key input
 void	apply_rotation(t_object *obj, int keycode, double step)
 {
 	t_vec3	rotation;

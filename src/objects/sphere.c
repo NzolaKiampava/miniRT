@@ -3,22 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maalmeid <maalmeid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:49:32 by nkiampav          #+#    #+#             */
-/*   Updated: 2025/03/08 14:27:54 by nkiampav         ###   ########.fr       */
+/*   Updated: 2025/05/24 16:04:25 by nkiampav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minirt.h"
 
-/**
- * Creates a new sphere object
- * @param center Center point of the sphere
- * @param diameter Diameter of the sphere
- * @param color Color of the sphere
- * @return Pointer to the newly created sphere
- */
 t_sphere	*sphere_create(t_vec3 center, double diameter, t_color color)
 {
 	t_sphere	*sphere;
@@ -32,12 +25,7 @@ t_sphere	*sphere_create(t_vec3 center, double diameter, t_color color)
 	return (sphere);
 }
 
-/**
- * Gets the normal vector at a point on a sphere
- * @param sphere Pointer to the sphere
- * @param point Point on the sphere
- * @return Normal vector at the point
- */
+//Gets the normal vector at a point on a sphere
 t_vec3	sphere_get_normal(t_sphere *sphere, t_vec3 point)
 {
 	t_vec3	normal;
@@ -46,21 +34,13 @@ t_vec3	sphere_get_normal(t_sphere *sphere, t_vec3 point)
 	return (vec3_normalize(normal));
 }
 
-/**
- * Translates a sphere by a given vector
- * @param sphere Pointer to the sphere
- * @param translation Translation vector
- */
+//Translates a sphere by a given vector
 void	sphere_translate(t_sphere *sphere, t_vec3 translation)
 {
 	sphere->center = vec3_add(sphere->center, translation);
 }
 
-/**
- * Rotating a sphere doesn't change its appearance
- * @param sphere Pointer to the sphere
- * @param rotation Rotation vector (unused)
- */
+// Rotating a sphere doesn't change its appearance
 void	sphere_rotate(t_sphere *sphere, t_vec3 rotation)
 {
 	(void)sphere;

@@ -6,7 +6,7 @@
 /*   By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:15:48 by nkiampav          #+#    #+#             */
-/*   Updated: 2025/05/09 08:25:09 by nkiampav         ###   ########.fr       */
+/*   Updated: 2025/05/24 15:39:26 by nkiampav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	display_help(void)
 	printf("ESC         : Exit program\n");
 	printf("TAB         : Select next object\n");
 	printf("R           : Toggle between rotation and translation mode\n");
-	printf("H           : T.betw. height and diam. resize for cylinders\n");
 	printf("Arrow keys  : Move or rotate selected object\n");
 	printf("+ / -       : Resize selected object\n");
 	printf("=====================\n\n");

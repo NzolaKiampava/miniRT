@@ -6,17 +6,13 @@
 /*   By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 08:44:26 by nkiampav          #+#    #+#             */
-/*   Updated: 2025/05/09 08:54:13 by nkiampav         ###   ########.fr       */
+/*   Updated: 2025/05/24 16:05:28 by nkiampav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minirt.h"
 
-/**
- * Handles object resizing
- * @param keycode The key code
- * @param scene Scene pointer
- */
+//Handles object resizing
 void	handle_resize(int keycode, t_scene *scene)
 {
 	t_object	*obj;
@@ -33,12 +29,7 @@ void	handle_resize(int keycode, t_scene *scene)
 	render(scene);
 }
 
-/**
-* Resizes a sphere object
-* @param sphere Sphere to resize
-* @param keycode The key code
-* @param step Step size for resizing
-*/
+//Resizes a sphere object
 void	resize_sphere(t_sphere *sphere, int keycode, double step)
 {
 	if (keycode == KEY_PLUS)
@@ -47,12 +38,7 @@ void	resize_sphere(t_sphere *sphere, int keycode, double step)
 		sphere->diameter -= step * 2;
 }
 
-/**
-* Resizes a cylinder object
-* @param cylinder Cylinder to resize
-* @param keycode The key code
-* @param step Step size for resizing
-*/
+//Resizes a cylinder object
 void	resize_cylinder(t_cylinder *cylinder, int keycode, double step,
 				t_scene *scene)
 {
@@ -75,10 +61,7 @@ void	resize_cylinder(t_cylinder *cylinder, int keycode, double step,
 	}
 }
 
-/**
-* Selects the next object in the scene for manipulation
-* @param scene Scene pointer
-*/
+//Selects the next object in the scene for manipulation
 void	select_next_object(t_scene *scene)
 {
 	scene->selected_obj_index = (scene->selected_obj_index + 1)

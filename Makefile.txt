@@ -6,7 +6,7 @@
 #    By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/05 10:11:29 by nkiampav          #+#    #+#              #
-#    Updated: 2025/03/14 11:12:04 by nkiampav         ###   ########.fr        #
+#    Updated: 2025/05/24 16:27:55 by nkiampav         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,30 +21,16 @@ CFLAGS		= -Wall -Wextra -Werror -g
 SRC_DIR		= src
 OBJ_DIR		= obj
 INC_DIR		= includes
-MINILIBX_DIR	= minilibx
-
-# Platform detection
-UNAME_S := $(shell uname -s)
+MINILIBX_DIR	= minilibx-linux
 
 # MLX Flags and Libraries
-ifeq ($(UNAME_S),Linux)
-	# Linux
-	MLXFLAGS	= -L$(MINILIBX_DIR) -lmlx -lXext -lX11 -lm
-	MLX_COMPILE	= make -C $(MINILIBX_DIR)
-else ifeq ($(UNAME_S),Darwin)
-	# macOS
-	MLXFLAGS	= -L$(MINILIBX_DIR) -lmlx -framework OpenGL -framework AppKit
-	MLX_COMPILE	= make -C $(MINILIBX_DIR)
-else
-	# Unsupported platform
-	$(error Unsupported operating system)
-endif
+MLXFLAGS	= -L$(MINILIBX_DIR) -lmlx -lXext -lX11 -lm
 
 # Math library
 MATHFLAGS	= -lm
 
-# Source files - adjusted to match your actual directory structure
-SRC_DIRS	= main parser vector ray render objects scene utils
+# Source files - adjusted to match the actual directory structure
+SRC_DIRS	= main parser vector ray render objects scene utils color
 SRCS		= $(foreach dir,$(SRC_DIRS),$(wildcard $(SRC_DIR)/$(dir)/*.c))
 OBJS		= $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRCS))
 
@@ -66,7 +52,7 @@ $(LIBFT):
 
 $(MINILIBX_DIR)/libmlx.a:
 	@echo "🔨 Compiling MinilibX..."
-	@$(MLX_COMPILE)
+	@make -C $(MINILIBX_DIR)
 
 $(NAME): $(OBJS)
 	@echo "🔨 Compiling $(NAME)..."

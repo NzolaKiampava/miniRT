@@ -6,18 +6,13 @@
 /*   By: nkiampav <nkiampav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 11:16:17 by nkiampav          #+#    #+#             */
-/*   Updated: 2025/04/24 15:54:56 by nkiampav         ###   ########.fr       */
+/*   Updated: 2025/05/24 16:02:55 by nkiampav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minirt.h"
 
-/**
- * Creates a new general object container
- * @param type Type of the object (OBJ_SPHERE, OBJ_PLANE, OBJ_CYLINDER)
- * @param data Pointer to the object-specific data
- * @return Pointer to the newly created object
- */
+//Creates a new general object container
 t_object	*object_create(int type, void *data)
 {
 	t_object	*obj;
@@ -30,13 +25,7 @@ t_object	*object_create(int type, void *data)
 	return (obj);
 }
 
-/**
- * Gets the normal vector at a point on an object
- * @param obj Pointer to the object data
- * @param type Type of the object
- * @param point Point on the object
- * @return Normal vector at the point
- */
+//Gets the normal vector at a point on an object
 t_vec3	object_get_normal(void *obj, int type, t_vec3 point)
 {
 	if (type == OBJ_SPHERE)
@@ -48,12 +37,7 @@ t_vec3	object_get_normal(void *obj, int type, t_vec3 point)
 	return ((t_vec3){0, 0, 0});
 }
 
-/**
-* Gets the color of an object
-* @param obj Pointer to the object data
-* @param type Type of the object
-* @return Color of the object
-*/
+//Gets the color of an object
 t_color	object_get_color(void *obj, int type)
 {
 	if (type == OBJ_SPHERE)
@@ -65,11 +49,7 @@ t_color	object_get_color(void *obj, int type)
 	return ((t_color){0, 0, 0});
 }
 
-/**
-* Translates an object by a given vector
-* @param obj Pointer to the object
-* @param translation Translation vector
-*/
+//Translates an object by a given vector
 void	object_translate(t_object *obj, t_vec3 translation)
 {
 	if (!obj || !obj->data)
@@ -82,11 +62,7 @@ void	object_translate(t_object *obj, t_vec3 translation)
 		cylinder_translate((t_cylinder *)obj->data, translation);
 }
 
-/**
-* Rotates an object by a given rotation vector
-* @param obj Pointer to the object
-* @param rotation Rotation vector (in radians)
-*/
+// Rotates an object by a given rotation vector
 void	object_rotate(t_object *obj, t_vec3 rotation)
 {
 	if (!obj || !obj->data)
