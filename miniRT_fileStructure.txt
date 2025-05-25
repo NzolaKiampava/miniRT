@@ -1,0 +1,57 @@
+miniRT/
+├── includes/
+│   ├── minirt.h         (Main header)
+│   ├── parser.h         (Scene file parsing)
+│   ├── vector.h         (Vector operations)
+│   ├── ray.h            (Ray definition)
+│   ├── objects.h        (Object definitions)
+│   ├── scene.h          (Scene structure)
+│   └── color.h          (Color utilities)
+├── src/
+│   ├── main          (Program entry)
+│   │   ├── main.c
+│   │   ├── help.c
+│   │   ├── key_handler.c
+│   │   ├── resize.c
+│   ├── parser/          (File parsing)
+│   │   ├── parser.c
+│   │   ├── parse_objects.c
+│   │   ├── parser_objects_utils.c
+│   │   └── parser_scene.c
+│   │   └── parser_utils.c
+│   │   ├── parser_utils2.c
+│   │   ├── parser_validates.c
+│   ├── vector/          (Vector operations)
+│   │   ├── vec3_optns.c
+│   │   └── vec3_extreme.c
+│   │   └── vector_utils.c
+│   │   └── vector.c
+│   │   └── vec3_rotate.c
+│   ├── ray/             (Ray tracing core)
+│   │   ├── ray.c
+│   │   ├── cylinder_calculus.c
+│   │   ├── cylinder_utils.c
+│   │   └── intersect.c
+│   ├── objects/         (Object implementations)
+│   │   ├── sphere.c
+│   │   ├── plane.c
+│   │   └── cylinder.c
+│   │   └── objects.c
+│   │   └── objects_utils.c
+│   ├── render/          (Rendering)
+│   │   ├── render.c
+│   │   └── render_utils.c
+│   ├── scene/          (scene)
+│   │   ├── scene.c
+│   │   ├── scene_utils.c
+│   │   ├── scene_free.c
+│   │   ├── lighting_calculus.c
+│   └── utils/           (Utilities)
+│       ├── color.c
+├── Makefile
+├── libft
+├── minilibx
+└── scenes/              (Example scene files)
+    ├── basic.rt
+    └── complex.rt
+    └── house.rt
